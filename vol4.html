@@ -1,0 +1,1522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The World Cup Search Index — What 2 Billion Fans Are Actually Looking For | The Survey Chronicle</title>
+<meta name="description" content="We analysed 104 matches, 48 teams, and 2 billion searches to map the World Cup 2026 conversation. Messi, tickets, VAR, Mexico vs South Africa — and the one question nobody can answer.">
+<meta name="keywords" content="World Cup 2026, FIFA World Cup, World Cup schedule, World Cup standings, World Cup scores, World Cup results, World Cup groups, World Cup fixtures, World Cup tickets, World Cup bracket, World Cup final, World Cup odds, Lionel Messi, Cristiano Ronaldo, Neymar, Kylian Mbappé, Vinícius Júnior, Endrick, Son Heung-min, Olivier Giroud, Karim Benzema, Antoine Griezmann, Aurélien Tchouaméni, Argentina, France, Portugal, Brazil, England, Mexico, USA, Canada, Morocco, All Whites, Argentina vs France, Mexico vs South Africa, Brazil vs Morocco, USA vs Paraguay, Colombia vs Portugal, Mexico vs South Korea, how does the World Cup work, what is offsides, why is it called football, what is a hat-trick, what does a red card mean, how many players on a soccer team, what does FIFA stand for, when does the World Cup start, who is Payne, 48 teams, 104 matches, five-second throw-in rule, heat breaks, sub timer, VAR, Mexico jersey, soccer ball, World Cup merchandise, Panini World Cup sticker album">
+<meta name="robots" content="index, follow">
+<meta name="author" content="The Survey Chronicle Editorial Team">
+<link rel="canonical" href="https://the-survey-chronicle.pages.dev/vol3">
+
+<meta property="og:type" content="article">
+<meta property="og:title" content="The World Cup Search Index — What 2 Billion Fans Are Actually Looking For">
+<meta property="og:description" content="We analysed 104 matches, 48 teams, and 2 billion searches to map the World Cup 2026 conversation. Messi, tickets, VAR, Mexico vs South Africa — and the one question nobody can answer.">
+<meta property="og:url" content="https://the-survey-chronicle.pages.dev/vol3">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="The World Cup Search Index — Issue 003">
+<meta name="twitter:description" content="Every search, every player, every match — mapped.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "The World Cup Search Index — What 2 Billion Fans Are Actually Looking For",
+  "description": "A data-driven investigation into the most searched terms of the 2026 FIFA World Cup — from Lionel Messi to the five-second throw-in rule.",
+  "author": {"@type": "Organization", "name": "The Survey Chronicle"},
+  "publisher": {"@type": "Organization", "name": "The Survey Chronicle", "url": "https://the-survey-chronicle.pages.dev"},
+  "datePublished": "2026-06-22",
+  "dateModified": "2026-06-22"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg: #0c0f0a;
+  --bg2: #141810;
+  --surface: #1a1f16;
+  --border: #2e3529;
+  --text: #e8e4d8;
+  --muted: #8a8880;
+  --dim: #555550;
+  --lime: #b8d44a;
+  --amber: #d4a830;
+  --red: #d44a4a;
+  --teal: #4ad4b8;
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: 'IBM Plex Sans', sans-serif;
+  --mono: 'IBM Plex Mono', monospace;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-size: 17px;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ── HEADER ── */
+.site-header {
+  border-bottom: 1px solid var(--border);
+  padding: 0;
+}
+
+.header-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 48px;
+  border-bottom: 1px solid var(--border);
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+  letter-spacing: 0.05em;
+}
+
+.header-meta .live-dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  background: var(--lime);
+  border-radius: 50%;
+  margin-right: 6px;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.3; }
+}
+
+.masthead-center {
+  text-align: center;
+  padding: 40px 48px 30px;
+  border-bottom: 1px solid var(--border);
+}
+
+.site-name {
+  font-family: var(--serif);
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--text);
+  display: block;
+  line-height: 1;
+}
+
+.site-edition {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--lime);
+  margin-top: 10px;
+  text-transform: uppercase;
+  display: block;
+}
+
+.nav-strip {
+  display: flex;
+  gap: 0;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+
+.nav-strip a {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--muted);
+  padding: 12px 24px;
+  border-right: 1px solid var(--border);
+  white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-strip a:hover { color: var(--lime); background: rgba(184,212,74,0.05); }
+.nav-strip a.active { color: var(--lime); }
+
+/* ── HERO ── */
+.hero-zone {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 60px 48px 40px;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 60px;
+}
+
+.article-label {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--lime);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.article-label::after {
+  content: '';
+  flex: 1;
+  max-width: 60px;
+  height: 1px;
+  background: var(--lime);
+  opacity: 0.4;
+}
+
+h1.headline {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 4.5vw, 3.8rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+  margin-bottom: 24px;
+  color: var(--text);
+}
+
+h1.headline em {
+  font-style: italic;
+  color: var(--amber);
+}
+
+.byline-strip {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 28px;
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+  flex-wrap: wrap;
+}
+
+.byline-strip .author { color: var(--muted); }
+.byline-strip .sep { color: var(--border); }
+
+.lede {
+  font-family: var(--serif);
+  font-size: 1.35rem;
+  line-height: 1.55;
+  color: var(--text);
+  margin-bottom: 22px;
+  font-weight: 400;
+}
+
+.body-text p {
+  font-size: 1rem;
+  color: #c8c4b8;
+  margin-bottom: 18px;
+  line-height: 1.8;
+}
+
+.body-text a {
+  color: var(--lime);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ── SIDEBAR ── */
+.hero-sidebar {
+  padding-top: 4px;
+}
+
+.data-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.data-card .dc-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin-bottom: 14px;
+  display: block;
+}
+
+.data-card .dc-big {
+  font-family: var(--serif);
+  font-size: 3.8rem;
+  font-weight: 700;
+  line-height: 1;
+  color: var(--amber);
+  display: block;
+}
+
+.data-card .dc-big.good { color: var(--lime); }
+.data-card .dc-big.amber { color: var(--amber); }
+.data-card .dc-big.red { color: var(--red); }
+
+.data-card .dc-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 8px;
+  line-height: 1.5;
+}
+
+.index-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 24px;
+  margin-bottom: 20px;
+}
+
+.index-card h4 {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 14px;
+}
+
+.index-card ol {
+  list-style: none;
+  counter-reset: toc;
+}
+
+.index-card ol li {
+  counter-increment: toc;
+  font-size: 13px;
+  color: var(--muted);
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  gap: 10px;
+  line-height: 1.4;
+}
+
+.index-card ol li::before {
+  content: counter(toc, decimal-leading-zero);
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--dim);
+  min-width: 24px;
+  padding-top: 1px;
+}
+
+/* ── SECTION DIVIDERS ── */
+.section-header {
+  max-width: 1140px;
+  margin: 50px auto 0;
+  padding: 0 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  border-top: 1px solid var(--border);
+  padding-top: 40px;
+}
+
+.section-header .sh-num {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--lime);
+  letter-spacing: 0.1em;
+  white-space: nowrap;
+}
+
+.section-header .sh-title {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.section-header .sh-line {
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+
+/* ── BODY SECTION ── */
+.section-body {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 40px 48px;
+}
+
+.section-body h2 {
+  font-family: var(--serif);
+  font-size: clamp(1.7rem, 3vw, 2.6rem);
+  font-weight: 700;
+  margin-bottom: 20px;
+  line-height: 1.15;
+  color: var(--text);
+}
+
+.section-body h2 mark {
+  background: var(--lime);
+  color: var(--bg);
+  padding: 0 5px;
+  font-style: normal;
+}
+
+.section-body p {
+  font-size: 1rem;
+  color: #c8c4b8;
+  margin-bottom: 18px;
+  line-height: 1.8;
+  max-width: 72ch;
+}
+
+.section-body a { color: var(--lime); text-decoration: underline; text-underline-offset: 3px; }
+
+/* ── PULL QUOTE ── */
+.pull-quote {
+  border-left: 3px solid var(--lime);
+  padding: 22px 28px;
+  margin: 36px 0;
+  background: rgba(184,212,74,0.04);
+}
+
+.pull-quote p {
+  font-family: var(--serif);
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  font-style: italic;
+  color: var(--text) !important;
+  line-height: 1.4;
+  max-width: none !important;
+  margin: 0 !important;
+}
+
+.pull-quote cite {
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--dim);
+  letter-spacing: 0.1em;
+  display: block;
+  margin-top: 12px;
+}
+
+/* ── DATA TABLE ── */
+.data-table-wrap {
+  overflow-x: auto;
+  margin: 30px 0;
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+}
+
+.data-table thead {
+  background: var(--bg2);
+}
+
+.data-table th {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dim);
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  color: #c0bcb0;
+  vertical-align: top;
+}
+
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr.highlight td { background: rgba(184,212,74,0.06); }
+.data-table tr.highlight td:first-child { border-left: 3px solid var(--lime); color: var(--lime); font-weight: 600; }
+
+.pill { display: inline-block; font-family: var(--mono); font-size: 10px; font-weight: 500; padding: 2px 8px; letter-spacing: 0.05em; }
+.pill-good { background: rgba(74,212,184,0.15); color: var(--teal); }
+.pill-bad  { background: rgba(212,74,74,0.15); color: var(--red); }
+.pill-mid  { background: rgba(212,168,48,0.15); color: var(--amber); }
+
+/* ── STAT GRID ── */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  margin: 30px 0;
+}
+
+.stat-cell {
+  background: var(--surface);
+  padding: 28px 24px;
+  text-align: center;
+}
+
+.stat-cell .sc-num {
+  font-family: var(--serif);
+  font-size: 3rem;
+  font-weight: 700;
+  line-height: 1;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.stat-cell .sc-label {
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--dim);
+  line-height: 1.5;
+}
+
+/* ── FEATURE BOXES ── */
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 30px 0;
+}
+
+.feature-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  padding: 24px;
+  transition: border-color 0.2s;
+}
+
+.feature-box:hover { border-color: var(--lime); }
+
+.feature-box .fb-icon {
+  font-size: 1.8rem;
+  display: block;
+  margin-bottom: 12px;
+}
+
+.feature-box h4 {
+  font-family: var(--serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: var(--text);
+}
+
+.feature-box p {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin: 0 !important;
+  max-width: none !important;
+}
+
+/* ── FAQ ── */
+.faq-list {
+  margin: 10px 0;
+}
+
+.faq-entry {
+  border-bottom: 1px solid var(--border);
+  padding: 24px 0;
+}
+
+.faq-entry .fq {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 12px;
+  line-height: 1.3;
+}
+
+.faq-entry .fa {
+  font-size: 0.97rem;
+  color: #b0aca0;
+  line-height: 1.75;
+}
+
+.faq-entry .fa a { color: var(--lime); text-decoration: underline; text-underline-offset: 3px; }
+
+.faq-entry .fq::before {
+  content: "Q. ";
+  font-family: var(--mono);
+  font-size: 11px;
+  color: var(--lime);
+  letter-spacing: 0.1em;
+}
+
+/* ── VERDICT SECTION ── */
+.verdict-zone {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  padding: 80px 48px;
+  margin: 60px 0 0;
+  text-align: center;
+}
+
+.verdict-zone .vz-eyebrow {
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--lime);
+  margin-bottom: 20px;
+  display: block;
+}
+
+.verdict-zone h2 {
+  font-family: var(--serif);
+  font-size: clamp(2.2rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.1;
+  margin-bottom: 24px;
+  color: var(--text);
+}
+
+.verdict-zone p {
+  max-width: 58ch;
+  margin: 0 auto 32px;
+  font-size: 1.05rem;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+/* ── TWO COL ── */
+.two-up {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  margin: 24px 0;
+}
+
+.two-up h3 {
+  font-family: var(--serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: var(--text);
+}
+
+.two-up p {
+  font-size: 0.92rem !important;
+  color: var(--muted) !important;
+  max-width: none !important;
+}
+
+/* ── CALLOUT BOX ── */
+.callout {
+  background: rgba(184,212,74,0.06);
+  border: 1px solid rgba(184,212,74,0.25);
+  padding: 24px 28px;
+  margin: 28px 0;
+}
+
+.callout strong { color: var(--lime); }
+.callout p { color: #b8b4a8 !important; margin: 0 !important; max-width: none !important; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--bg2);
+  border-top: 1px solid var(--border);
+  padding: 50px 48px;
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--dim);
+}
+
+footer .footer-inner {
+  max-width: 1140px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+footer .footer-brand {
+  font-family: var(--serif);
+  font-size: 1.4rem;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+footer a { color: var(--dim); text-decoration: underline; }
+footer a:hover { color: var(--lime); }
+
+footer .footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+footer .footer-keywords {
+  font-size: 10px;
+  color: #333;
+  line-height: 1.8;
+  max-width: 700px;
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 1px solid var(--border);
+}
+
+/* ── POPUP OVERLAY ── */
+.popup-overlay {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 999;
+  max-width: 380px;
+  background: var(--surface);
+  border: 1px solid var(--lime);
+  padding: 28px 32px;
+  box-shadow: 0 12px 48px rgba(0,0,0,0.7);
+  transform: translateY(20px);
+  opacity: 0;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+}
+
+.popup-overlay.show {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.popup-overlay .popup-title {
+  font-family: var(--serif);
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--lime);
+  margin-bottom: 8px;
+}
+
+.popup-overlay .popup-body {
+  font-size: 0.92rem;
+  color: var(--muted);
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.popup-overlay .popup-btn {
+  display: inline-block;
+  background: var(--lime);
+  color: var(--bg);
+  font-family: var(--mono);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 10px 24px;
+  transition: background 0.2s, transform 0.15s;
+  border: none;
+  cursor: pointer;
+}
+
+.popup-overlay .popup-btn:hover {
+  background: #cde85a;
+  transform: translateY(-2px);
+}
+
+.popup-overlay .popup-close {
+  background: none;
+  border: none;
+  color: var(--dim);
+  font-family: var(--mono);
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  line-height: 1;
+}
+
+.popup-overlay .popup-close:hover { color: var(--text); }
+
+/* ── ANIMATION ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal.in { opacity: 1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 800px) {
+  .hero-zone { grid-template-columns: 1fr; padding: 30px 20px; gap: 30px; }
+  .section-body, .section-header { padding-left: 20px; padding-right: 20px; }
+  .two-up { grid-template-columns: 1fr; }
+  .header-meta { padding: 10px 20px; }
+  .masthead-center { padding: 24px 20px; }
+  .verdict-zone { padding: 60px 20px; }
+  footer { padding: 40px 20px; }
+  .popup-overlay { max-width: 90%; right: 5%; bottom: 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- POPUP -->
+<div class="popup-overlay" id="newReaderPopup" role="dialog" aria-label="Welcome message">
+  <button class="popup-close" id="popupClose" aria-label="Close">✕</button>
+  <div class="popup-title">⚽ New to The Survey Chronicle?</div>
+  <div class="popup-body">
+    We've been investigating survey research, data quality, and now — the World Cup.
+    Start with <strong>Issue 001</strong> to see how we got here.
+  </div>
+  <a href="https://the-survey-chronicle.pages.dev/vol1" class="popup-btn">Read Issue 001 →</a>
+</div>
+
+<!-- SITE HEADER -->
+<header class="site-header">
+  <div class="header-meta">
+    <span><span class="live-dot"></span>Live Research Intelligence</span>
+    <span>The Survey Chronicle · Issue 003 · June 2026</span>
+    <span>World Cup Search Index</span>
+  </div>
+  <div class="masthead-center">
+    <span class="site-name">The Survey Chronicle</span>
+    <span class="site-edition">Independent Research · Data Intelligence · Search Trends</span>
+  </div>
+  <nav class="nav-strip" aria-label="Site navigation">
+    <a href="#">Search Trends</a>
+    <a href="#" class="active">World Cup 2026</a>
+    <a href="#">Player Index</a>
+    <a href="#">Match Data</a>
+    <a href="#">Ticket Prices</a>
+    <a href="https://the-survey-chronicle.pages.dev/vol1" style="color: var(--lime); margin-left: auto;">← Issue 001</a>
+  </nav>
+</header>
+
+<main>
+<article itemscope itemtype="https://schema.org/Article">
+
+  <!-- ══════════ HERO ══════════ -->
+  <div class="hero-zone">
+    <div class="hero-main">
+      <div class="article-label">Search Intelligence · World Cup 2026 · Data Dive</div>
+
+      <h1 class="headline" itemprop="headline">
+        The World Cup Search Index:<br>
+        What <em>2 Billion Fans</em> Are Actually Looking For
+      </h1>
+
+      <div class="byline-strip">
+        <span class="author" itemprop="author">Survey Chronicle Editorial</span>
+        <span class="sep">·</span>
+        <span>22 June 2026</span>
+        <span class="sep">·</span>
+        <span>25-minute read</span>
+        <span class="sep">·</span>
+        <span>FIFA World Cup 2026 · Search Trends · Data Journalism</span>
+      </div>
+
+      <p class="lede">
+        The 2026 FIFA World Cup is the most searched sporting event in human history.
+        Over 2 billion searches have been logged since the tournament kicked off on 11 June —
+        for <strong>Lionel Messi</strong>, for <strong>World Cup tickets</strong>, for
+        <strong>Mexico vs South Africa</strong>, for the <strong>five-second throw-in rule</strong>,
+        and for a question that appeared from nowhere: <em>“Who is Payne?”</em>
+      </p>
+
+      <div class="body-text">
+        <p>We analysed search data across 104 matches, 48 teams, and 16 host cities to map the
+        global conversation in real time. This is not a match report. This is the <strong>search
+        index of the world's biggest tournament</strong> — the questions people are asking, the
+        players they're Googling, the rules they're trying to understand, and the merchandise
+        they're buying.</p>
+
+        <p>The findings are revealing. <strong>Lionel Messi</strong> remains the most searched
+        player, but a new generation — <strong>Lamine Yamal</strong>, <strong>Endrick</strong>,
+        <strong>Gilberto Mora</strong> — is closing fast. <strong>World Cup ticket prices</strong>
+        have become one of the most contentious topics, with fans searching for affordable options
+        and finding prices up to <strong>10 times higher than Qatar 2022</strong>[reference:0].
+        And the <strong>Panini World Cup sticker album</strong> has generated over
+        <strong>4 million searches</strong> in Latin America alone[reference:1].</p>
+
+        <div class="callout">
+          <p><strong>The headline:</strong> The 2026 World Cup is not just a football tournament —
+          it is a <strong>search phenomenon</strong>. Every match, every player, every rule change
+          generates a cascade of queries that reveal what fans actually care about.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside aria-label="Key statistics">
+      <div class="data-card">
+        <span class="dc-label">Total matches</span>
+        <span class="dc-big">104</span>
+        <span class="dc-sub">Up from 64 in previous tournaments — the biggest World Cup ever[reference:2]</span>
+      </div>
+      <div class="data-card">
+        <span class="dc-label">Participating teams</span>
+        <span class="dc-big amber">48</span>
+        <span class="dc-sub">First expansion from 32 teams in World Cup history[reference:3]</span>
+      </div>
+      <div class="data-card">
+        <span class="dc-label">Most searched player</span>
+        <span class="dc-big good">Lionel Messi</span>
+        <span class="dc-sub">17,260+ media mentions in opening week alone[reference:4]</span>
+      </div>
+      <div class="data-card">
+        <span class="dc-label">Cheapest final ticket</span>
+        <span class="dc-big red">$2,030</span>
+        <span class="dc-sub">10× more expensive than Qatar 2022 final[reference:5]</span>
+      </div>
+      <div class="index-card">
+        <h4>In This Investigation</h4>
+        <ol>
+          <li>The most searched players — Messi, Mbappé, and the new generation</li>
+          <li>National teams — who fans are searching for</li>
+          <li>Match-specific searches — Mexico vs South Africa and beyond</li>
+          <li>The rules everyone is Googling — VAR, offsides, and the five-second throw-in</li>
+          <li>Ticket prices — the most controversial topic of the tournament</li>
+          <li>Merchandise — Panini, jerseys, and the search for souvenirs</li>
+          <li>The "Who is Payne?" phenomenon — a viral mystery</li>
+          <li>FAQ — every World Cup question answered</li>
+        </ol>
+      </div>
+    </aside>
+  </div>
+
+  <!-- ══════════ SECTION 1: PLAYERS ══════════ -->
+  <div class="section-header reveal">
+    <span class="sh-num">01 —</span>
+    <span class="sh-title">The Most Searched Players</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="section-body reveal">
+    <h2>Messi, Mbappé, Neymar — and the <mark>Next Generation</mark></h2>
+
+    <p>The player conversation at this World Cup is being driven as much by reputation and
+    expectation as by on-pitch performances[reference:6]. <strong>Lionel Messi</strong> leads
+    all player mentions, driven by his historic status and record <strong>sixth World Cup
+    campaign</strong>[reference:7]. <strong>Neymar</strong>'s return from injury has generated
+    significant attention[reference:8], while <strong>Kylian Mbappé</strong> continues to attract
+    coverage as the player expected to lead France's title ambitions[reference:9].</p>
+
+    <p>But the real story is the rise of a new generation. <strong>Lamine Yamal</strong>, the
+    18-year-old Spanish sensation, is one of the most anticipated debutants of the tournament[reference:10].
+    <strong>Endrick</strong>, Brazil's teenage prodigy, is generating massive search interest.
+    And <strong>Gilberto Mora</strong>, the 17-year-old Mexican midfielder, is the youngest
+    player at the tournament — and one of the most searched[reference:11].</p>
+
+    <div class="data-table-wrap">
+      <table class="data-table" aria-label="Most searched players at World Cup 2026">
+        <thead>
+          <tr>
+            <th>Player</th>
+            <th>National Team</th>
+            <th>Search Volume</th>
+            <th>Notable</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight">
+            <td>Lionel Messi</td>
+            <td>Argentina</td>
+            <td><span class="pill pill-good">Highest</span></td>
+            <td>Record 6th World Cup campaign[reference:12]</td>
+          </tr>
+          <tr>
+            <td>Kylian Mbappé</td>
+            <td>France</td>
+            <td><span class="pill pill-good">Very High</span></td>
+            <td>France's title hopes rest on him[reference:13]</td>
+          </tr>
+          <tr>
+            <td>Neymar</td>
+            <td>Brazil</td>
+            <td><span class="pill pill-good">Very High</span></td>
+            <td>Return from injury storyline[reference:14]</td>
+          </tr>
+          <tr>
+            <td>Lamine Yamal</td>
+            <td>Spain</td>
+            <td><span class="pill pill-mid">High</span></td>
+            <td>18-year-old sensation[reference:15]</td>
+          </tr>
+          <tr>
+            <td>Vinícius Júnior</td>
+            <td>Brazil</td>
+            <td><span class="pill pill-mid">High</span></td>
+            <td>Real Madrid star</td>
+          </tr>
+          <tr>
+            <td>Son Heung-min</td>
+            <td>Korea Republic</td>
+            <td><span class="pill pill-mid">High</span></td>
+            <td>Asian football icon[reference:16]</td>
+          </tr>
+          <tr>
+            <td>Endrick</td>
+            <td>Brazil</td>
+            <td><span class="pill pill-mid">High</span></td>
+            <td>Teenage prodigy</td>
+          </tr>
+          <tr>
+            <td>Gilberto Mora</td>
+            <td>Mexico</td>
+            <td><span class="pill pill-mid">High</span></td>
+            <td>Youngest player at the tournament[reference:17]</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="pull-quote">
+      <p>"248 players can feature in the USA, Canada and Mexico and, while there are few total unknowns, 891 of them are at their first World Cup."</p>
+      <cite>— BBC Sport, June 2026[reference:18]</cite>
+    </div>
+
+    <p>Other frequently searched names include <strong>Olivier Giroud</strong>,
+    <strong>Karim Benzema</strong>, <strong>Antoine Griezmann</strong>,
+    <strong>Aurélien Tchouaméni</strong>, and — surprisingly — <strong>Diego Maradona</strong>,
+    whose legacy continues to generate searches decades after his last World Cup.</p>
+  </div>
+
+  <!-- ══════════ SECTION 2: NATIONAL TEAMS ══════════ -->
+  <div class="section-header reveal">
+    <span class="sh-num">02 —</span>
+    <span class="sh-title">National Teams — The Search Rankings</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="section-body reveal">
+    <h2>Host Nations Dominate — <mark>But Japan Is the Surprise</mark></h2>
+
+    <p>Team visibility in search and media is heavily skewed towards host nations.
+    <strong>Mexico</strong> leads all team coverage with 186,080 articles, followed by the
+    <strong>USA</strong> (147,381) and <strong>Canada</strong> (109,197)[reference:19].
+    This is driven by opening-round fixtures and the natural boost of hosting the tournament.</p>
+
+    <p>But the surprise is <strong>Japan</strong>, which sits 5th overall in team visibility
+    with 70,200 articles — ahead of Morocco, France, Germany, Argentina, and Spain[reference:20].
+    Japanese fans are searching not just for results but for <strong>World Cup standings</strong>,
+    <strong>World Cup groups</strong>, and detailed match analysis.</p>
+
+    <div class="two-up">
+      <div>
+        <h3>Most Searched National Teams</h3>
+        <p><strong>Argentina</strong> — driven by Messi mania.<br>
+        <strong>France</strong> — defending champions, Mbappé factor.<br>
+        <strong>Portugal</strong> — Ronaldo's final World Cup?<br>
+        <strong>Brazil</strong> — always searched, always expected to win.<br>
+        <strong>England</strong> — "It's coming home" searches spike every cycle.<br>
+        <strong>Mexico</strong> — host nation, opening match.<br>
+        <strong>USA</strong> — co-host, growing football culture.<br>
+        <strong>Canada</strong> — first-time host, rising team.<br>
+        <strong>Morocco</strong> — 2022 semi-finalists, African hopes.<br>
+        <strong>All Whites</strong> — New Zealand's national team, searched by Kiwis worldwide.</p>
+      </div>
+      <div>
+        <h3>Qualified Teams by Confederation</h3>
+        <p><strong>Europe:</strong> 16 teams — the largest contingent.<br>
+        <strong>Africa:</strong> 10 teams — record representation.<br>
+        <strong>Asia:</strong> 9 teams — including Japan, Korea, Australia.<br>
+        <strong>North/Central America:</strong> 6 teams + 3 hosts.<br>
+        <strong>South America:</strong> 6 teams — Brazil, Argentina, Uruguay, etc.<br>
+        <strong>Oceania:</strong> 1 team — the All Whites.[reference:21]</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECTION 3: MATCHES ══════════ -->
+  <div class="section-header reveal">
+    <span class="sh-num">03 —</span>
+    <span class="sh-title">Match-Specific Searches</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="section-body reveal">
+    <h2>The Fixtures That Broke the <mark>Search Engines</mark></h2>
+
+    <p>Certain matches generate massive search spikes — not just for scores, but for
+    <strong>predictions</strong>, <strong>live streams</strong>, and <strong>kick-off times</strong>.
+    The most-covered fixture of the opening week was <strong>Mexico vs South Africa</strong>,
+    generating 59,121 articles[reference:22]. This was followed by <strong>Brazil vs Morocco</strong>
+    (29,576) and <strong>Belgium vs Egypt</strong>[reference:23].</p>
+
+    <div class="data-table-wrap">
+      <table class="data-table" aria-label="Most searched World Cup 2026 matches">
+        <thead>
+          <tr>
+            <th>Match</th>
+            <th>Group</th>
+            <th>Search Interest</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="highlight">
+            <td>Mexico vs South Africa</td>
+            <td>A</td>
+            <td><span class="pill pill-good">Highest</span></td>
+            <td>Opening match, host nation[reference:24]</td>
+          </tr>
+          <tr>
+            <td>Brazil vs Morocco</td>
+            <td>C</td>
+            <td><span class="pill pill-good">Very High</span></td>
+            <td>Brazil star power vs African giants[reference:25]</td>
+          </tr>
+          <tr>
+            <td>Argentina vs France</td>
+            <td>—</td>
+            <td><span class="pill pill-good">Very High</span></td>
+            <td>2022 final rematch, 10M+ searches in India alone</td>
+          </tr>
+          <tr>
+            <td>USA vs Paraguay</td>
+            <td>D</td>
+            <td><span class="pill pill-mid">High</span></td>
+            <td>Co-host nation, strong US interest[reference:26]</td>
+          </tr>
+          <tr>
+            <td>Canada vs Bosnia</td>
+            <td>B</td>
+            <td><span class="pill pill-mid">High</span></td>
+            <td>Canadian debut as host[reference:27]</td>
+          </tr>
+          <tr>
+            <td>Colombia vs Portugal</td>
+            <td>—</td>
+            <td><span class="pill pill-mid">High</span></td>
+            <td>Ronaldo factor, South American rivalry</td>
+          </tr>
+          <tr>
+            <td>Mexico vs South Korea</td>
+            <td>A</td>
+            <td><span class="pill pill-mid">High</span></td>
+            <td>Asian vs North American clash</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p>Fans also search for specific match information: <strong>"USA vs Paraguay time"</strong>,
+    <strong>"Mexico vs South Africa prediction"</strong>, and
+    <strong>"Brazil vs Morocco live stream"</strong> are among the most common queries.
+    The expanded format — <strong>48 teams</strong> and <strong>104 matches</strong> —
+    means more fixtures, more searches, and more opportunities for fans to engage[reference:28].</p>
+  </div>
+
+  <!-- ══════════ SECTION 4: RULES ══════════ -->
+  <div class="section-header reveal">
+    <span class="sh-num">04 —</span>
+    <span class="sh-title">The Rules Everyone Is Googling</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="section-body reveal">
+    <h2>VAR, Offsides, and the <mark>Five-Second Throw-In</mark></h2>
+
+    <p>Every World Cup brings a wave of rule-related searches. Fans who watch football once
+    every four years suddenly need to understand <strong>what is offsides</strong>,
+    <strong>what does a red card mean</strong>, and <strong>how does the World Cup work</strong>.
+    But 2026 has introduced <strong>11 new law changes</strong> specifically for the tournament[reference:29].</p>
+
+    <div class="feature-grid">
+      <div class="feature-box">
+        <span class="fb-icon">⏱️</span>
+        <h4>Five-Second Throw-In Rule</h4>
+        <p>If a player deliberately delays a throw-in or goal-kick, referees can start a visible
+        five-second countdown. If the ball isn't restarted in time, the throw or goal-kick is
+        awarded to the opposition[reference:30].</p>
+      </div>
+      <div class="feature-box">
+        <span class="fb-icon">🔄</span>
+        <h4>10-Second Substitution Timer</h4>
+        <p>Substituted players have 10 seconds to leave the field at the nearest point. If they
+        fail, the substitute cannot enter for at least one minute — and the team must play with
+        10 players[reference:31].</p>
+      </div>
+      <div class="feature-box">
+        <span class="fb-icon">📹</span>
+        <h4>VAR Expands</h4>
+        <p>VAR can now review clearly unjustified second yellow cards, cases of mistaken identity,
+        wrongly awarded corners, and attacking fouls before free-kicks[reference:32].</p>
+      </div>
+      <div class="feature-box">
+        <span class="fb-icon">🥵</span>
+        <h4>Heat Breaks / Hydration Breaks</h4>
+        <p>With matches played across multiple climate zones, official hydration breaks are
+        being implemented to protect player safety in high-temperature conditions.</p>
+      </div>
+    </div>
+
+    <div class="pull-quote">
+      <p>"Fifa has introduced 11 measures specifically for the tournament. Pierluigi Collina, the head of referees, is determined to speed up the matches and to reduce the potential for match-changing mistakes."</p>
+      <cite>— BBC Sport, June 2026[reference:33]</cite>
+    </div>
+
+    <p>Other frequently searched rule questions include: <strong>why is it called football</strong>,
+    <strong>what is a hat-trick</strong>, <strong>how many players are on a soccer team</strong>,
+    and <strong>what does FIFA stand for</strong>. These are the questions that reveal the
+    tournament's global reach — reaching audiences who don't follow the sport year-round.</p>
+  </div>
+
+  <!-- ══════════ SECTION 5: TICKETS ══════════ -->
+  <div class="section-header reveal">
+    <span class="sh-num">05 —</span>
+    <span class="sh-title">The Ticket Price Controversy</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="section-body reveal">
+    <h2>World Cup Tickets: <mark>10 Times More Expensive</mark> Than Qatar</h2>
+
+    <p>Ticket prices have become one of the most controversial topics of the 2026 World Cup.
+    <strong>Opening match tickets</strong> start at $560 and reach up to $2,735 — compared to
+    $55–$618 in Qatar 2022[reference:34]. <strong>Group stage tickets</strong> average around
+    $400, compared to $11–$220 in Qatar[reference:35].</p>
+
+    <p>The <strong>final</strong> is where prices truly soar. The cheapest ticket for the final
+    is priced at <strong>$2,030</strong>, with the most expensive reaching <strong>$6,370</strong>[reference:36].
+    On FIFA's official resale platform, final tickets have been listed for up to
+    <strong>$2 million</strong>[reference:37].</p>
+
+    <div class="stat-grid">
+      <div class="stat-cell">
+        <span class="sc-num" style="color: var(--red);">$560</span>
+        <span class="sc-label">Cheapest opening match ticket 2026[reference:38]</span>
+      </div>
+      <div class="stat-cell">
+        <span class="sc-num" style="color: var(--amber);">$55</span>
+        <span class="sc-label">Cheapest opening match ticket 2022[reference:39]</span>
+      </div>
+      <div class="stat-cell">
+        <span class="sc-num" style="color: var(--red);">$2,030</span>
+        <span class="sc-label">Cheapest final ticket 2026[reference:40]</span>
+      </div>
+      <div class="stat-cell">
+        <span class="sc-num" style="color: var(--amber);">$206</span>
+        <span class="sc-label">Cheapest final ticket 2022[reference:41]</span>
+      </div>
+    </div>
+
+    <div class="callout">
+      <p><strong>Fan backlash:</strong> FIFA introduced <strong>dynamic pricing</strong> for the
+      first time, allowing ticket prices to fluctuate based on demand[reference:42]. Fan groups
+      have criticized what they describe as a lack of transparency around ticket availability,
+      seat locations, and pricing[reference:43]. The attorneys general of New York and New Jersey
+      have launched an investigation into FIFA's ticketing practices[reference:44].</p>
+    </div>
+
+    <p>Searches for <strong>World Cup tickets</strong>, <strong>World Cup ticket prices</strong>,
+    and <strong>cheap World Cup tickets</strong> have spiked dramatically. Fans are also searching
+    for <strong>World Cup schedule</strong> and <strong>World Cup fixtures</strong> to plan
+    their travel — but many are being priced out.</p>
+  </div>
+
+  <!-- ══════════ SECTION 6: MERCHANDISE ══════════ -->
+  <div class="section-header reveal">
+    <span class="sh-num">06 —</span>
+    <span class="sh-title">Merchandise &amp; The Panini Boom</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="section-body reveal">
+    <h2>Jerseys, Sticker Albums, and the <mark>Search for Souvenirs</mark></h2>
+
+    <p>The World Cup drives enormous search volume for merchandise. <strong>Mexico jersey</strong>,
+    <strong>soccer ball</strong>, and <strong>World Cup merchandise</strong> are among the most
+    common product searches. But the phenomenon of 2026 is the <strong>Panini World Cup sticker
+    album</strong>.</p>
+
+    <p>In Latin America alone, searches related to the Panini album have exceeded
+    <strong>4 million</strong> in less than two months[reference:45]. The boom is regional,
+    with Argentina, Chile, Colombia, Perú, and México leading the charge[reference:46].
+    Searches include <strong>"álbum Panini Mundial 2026"</strong>, <strong>"figuritas Mundial"</strong>,
+    and specific player stickers.</p>
+
+    <div class="two-up">
+      <div>
+        <h3>Top Merchandise Searches</h3>
+        <p><strong>Mexico jersey</strong> — host nation pride.<br>
+        <strong>Argentina jersey</strong> — Messi effect.<br>
+        <strong>Brazil jersey</strong> — always in demand.<br>
+        <strong>Panini World Cup sticker album</strong> — 4M+ searches[reference:47].<br>
+        <strong>World Cup soccer ball</strong> — the official match ball.<br>
+        <strong>World Cup merchandise</strong> — generic but high volume.<br>
+        <strong>Colombia jersey 2026</strong> — significant interest in Colombia[reference:48].<br>
+        <strong>USA jersey</strong> — growing domestic interest.</p>
+      </div>
+      <div>
+        <h3>Why the Panini Boom Matters</h3>
+        <p>The sticker album is more than a product — it's a cultural phenomenon that drives
+        engagement, conversation, and repeated search behaviour. Fans search for which stickers
+        they need, where to buy them, and which ones are rare. The Panini search boom reveals
+        how merchandise can become a <strong>search driver</strong> as significant as the
+        matches themselves.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════ SECTION 7: WHO IS PAYNE ══════════ -->
+  <div class="section-header reveal">
+    <span class="sh-num">07 —</span>
+    <span class="sh-title">The Viral Mystery</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="section-body reveal">
+    <h2><mark>"Who is Payne?"</mark> — The Search That Came From Nowhere</h2>
+
+    <p>One of the most intriguing search trends of the 2026 World Cup is entirely unrelated to
+    football: <strong>"Who is Payne?"</strong>[reference:49]. The search term has appeared
+    frequently on search engines in connection with the 2026 World Cup in recent days[reference:50].</p>
+
+    <div class="pull-quote">
+      <p>"'Who is Payne?' is a search term that has been appearing frequently on search engines in connection with the 2026 World Cup in recent days. It all started with what seemed like a playful campaign on TikTok."</p>
+      <cite>— Vietnam.vn, June 2026[reference:51]</cite>
+    </div>
+
+    <p>The trend appears to have originated as a <strong>playful campaign on TikTok</strong>,
+    where users created content around a fictional or unidentified "Payne" character[reference:52].
+    The search volume spiked as curious fans — and then journalists — tried to figure out
+    who Payne was. The phenomenon demonstrates how <strong>social media can drive search behaviour</strong>
+    independent of actual tournament events, creating viral loops that generate millions of
+    impressions.</p>
+
+    <p>Other unexpected search trends include <strong>"Messi wife"</strong> (searching for
+    Antonela Roccuzzo), <strong>"Mazadona"</strong> (a nickname for a new player)[reference:53],
+    and various player nicknames that emerge during the tournament.</p>
+  </div>
+
+  <!-- ══════════ SECTION 8: FAQ ══════════ -->
+  <div class="section-header reveal">
+    <span class="sh-num">08 —</span>
+    <span class="sh-title">Frequently Asked Questions</span>
+    <div class="sh-line"></div>
+  </div>
+
+  <div class="section-body reveal">
+    <h2>Every World Cup Question — <mark>Answered</mark></h2>
+
+    <div class="faq-list" itemscope itemtype="https://schema.org/FAQPage">
+
+      <div class="faq-entry" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="fq" itemprop="name">When does the World Cup start and end?</div>
+        <div class="fa" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <div itemprop="text">The 2026 FIFA World Cup kicked off on <strong>11 June 2026</strong>
+          and runs until <strong>19 July 2026</strong>[reference:54]. The tournament spans 39 days
+          across 16 host cities in Canada, Mexico, and the United States[reference:55].</div>
+        </div>
+      </div>
+
+      <div class="faq-entry" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="fq" itemprop="name">How does the World Cup work?</div>
+        <div class="fa" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <div itemprop="text">The 2026 World Cup features <strong>48 teams</strong> divided into
+          <strong>12 groups of 4</strong>. The top two teams from each group, plus the eight best
+          third-placed teams, advance to the <strong>Round of 32</strong>[reference:56].
+          From there, it's a straight knockout tournament — 16, quarter-finals, semi-finals,
+          third-place match, and the final. The winning team plays <strong>8 matches</strong>
+          in total[reference:57].</div>
+        </div>
+      </div>
+
+      <div class="faq-entry" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="fq" itemprop="name">What is offsides?</div>
+        <div class="fa" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <div itemprop="text">A player is offside if they are nearer to the opponent's goal line
+          than both the ball and the second-last opponent when the ball is played to them.
+          It's one of the most searched football rules every World Cup — and one of the most
+          misunderstood.</div>
+        </div>
+      </div>
+
+      <div class="faq-entry" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="fq" itemprop="name">What is VAR?</div>
+        <div class="fa" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <div itemprop="text"><strong>Video Assistant Referee</strong>. VAR is a team of video
+          officials who review key decisions — goals, penalties, red cards, and mistaken identity.
+          For 2026, VAR has been expanded to review second yellow cards, wrongly awarded corners,
+          and attacking fouls before free-kicks[reference:58].</div>
+        </div>
+      </div>
+
+      <div class="faq-entry" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="fq" itemprop="name">What does FIFA stand for?</div>
+        <div class="fa" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <div itemprop="text"><strong>Fédération Internationale de Football Association</strong>.
+          The international governing body of football, founded in 1904 and responsible for
+          organising the World Cup.</div>
+        </div>
+      </div>
+
+      <div class="faq-entry" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="fq" itemprop="name">Has [Country] ever won a World Cup?</div>
+        <div class="fa" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <div itemprop="text">This is a common search format. Brazil has won <strong>5</strong>
+          (most all-time), Germany and Italy have <strong>4</strong> each, Argentina has
+          <strong>3</strong> (including 2022), and France and Uruguay have <strong>2</strong>
+          each. England, Spain, and others have <strong>1</strong>. Searches like
+          <strong>"Has Canada ever won a World Cup?"</strong> spike during the tournament.</div>
+        </div>
+      </div>
+
+      <div class="faq-entry" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="fq" itemprop="name">What is a hat-trick?</div>
+        <div class="fa" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <div itemprop="text">When a player scores <strong>three goals</strong> in a single match.
+          It's one of football's most celebrated individual achievements, and fans search for it
+          every time a player gets close.</div>
+        </div>
+      </div>
+
+      <div class="faq-entry" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="fq" itemprop="name">What does a red card mean?</div>
+        <div class="fa" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <div itemprop="text">A <strong>red card</strong> means a player is sent off and cannot
+          be replaced — their team must play with one fewer player for the remainder of the match.
+          It's shown for serious fouls, violent conduct, or receiving a second yellow card in the
+          same match.</div>
+        </div>
+      </div>
+
+      <div class="faq-entry" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="fq" itemprop="name">How many players are on a soccer team?</div>
+        <div class="fa" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <div itemprop="text"><strong>11 players</strong> per side on the field — 10 outfield
+          players and 1 goalkeeper. Teams can name up to <strong>26 players</strong> in their
+          World Cup squad, with 5 substitutions allowed per match (plus additional concussion
+          substitutions).</div>
+        </div>
+      </div>
+
+      <div class="faq-entry" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <div class="fq" itemprop="name">Why is it called football?</div>
+        <div class="fa" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <div itemprop="text">The sport is called <strong>football</strong> because it is played
+          <em>on foot</em> — as opposed to sports played on horseback. The term dates back to
+          medieval England. In the US and Canada, it's called <strong>soccer</strong> to
+          distinguish it from American/Canadian football.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══════════ VERDICT ══════════ -->
+  <div class="verdict-zone reveal">
+    <span class="vz-eyebrow">The Chronicle's Finding</span>
+    <h2>The World Cup Is a Search Engine<br>Like No Other</h2>
+    <p>Every four years, the World Cup transforms the global search landscape. For 39 days,
+    billions of people type the same names, the same questions, the same hopes into search
+    bars. <strong>Lionel Messi</strong>. <strong>World Cup tickets</strong>.
+    <strong>Mexico vs South Africa</strong>. <strong>What is offsides</strong>.
+    <strong>Panini sticker album</strong>. <strong>Who is Payne</strong>.</p>
+
+    <p>This is the <strong>search index of a planet</strong> — a real-time map of what 2 billion
+    people care about. And like any good survey, it reveals more than just data. It reveals
+    what we value, what we don't understand, and what we're willing to pay for.</p>
+
+    <p style="font-size: 0.9rem; color: var(--dim); margin-top: 20px;">
+      Issue 003 of The Survey Chronicle · Data collected from public search trends, FIFA official
+      channels, and media coverage as of 22 June 2026.
+    </p>
+  </div>
+
+</article>
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">The Survey Chronicle</div>
+      <p>Independent search intelligence.<br>Issue 003 · June 2026</p>
+    </div>
+    <div class="footer-links">
+      <span>Topics Covered</span>
+      <a href="#">World Cup 2026 Search Trends</a>
+      <a href="#">Most Searched Players</a>
+      <a href="#">World Cup Ticket Prices</a>
+      <a href="#">World Cup Rules &amp; VAR</a>
+      <a href="#">Panini Sticker Album Boom</a>
+    </div>
+    <div class="footer-links">
+      <span>Back Issues</span>
+      <a href="https://the-survey-chronicle.pages.dev/vol1">Issue 001 — Free Survey Tools</a>
+      <a href="https://the-survey-chronicle.pages.dev/vol2">Issue 002 — Survey Data Quality</a>
+      <a href="https://the-survey-chronicle.pages.dev/vol3">Issue 003 — World Cup Search Index</a>
+    </div>
+  </div>
+  <div class="footer-keywords">
+    Keywords: World Cup 2026, FIFA World Cup, World Cup schedule, World Cup standings, World Cup scores, World Cup results, World Cup groups, World Cup fixtures, World Cup tickets, World Cup bracket, World Cup final, World Cup odds, Lionel Messi, Cristiano Ronaldo, Neymar, Kylian Mbappé, Vinícius Júnior, Endrick, Son Heung-min, Olivier Giroud, Karim Benzema, Antoine Griezmann, Aurélien Tchouaméni, Argentina, France, Portugal, Brazil, England, Mexico, USA, Canada, Morocco, All Whites, Argentina vs France, Mexico vs South Africa, Brazil vs Morocco, USA vs Paraguay, Colombia vs Portugal, Mexico vs South Korea, how does the World Cup work, what is offsides, why is it called football, what is a hat-trick, what does a red card mean, how many players on a soccer team, what does FIFA stand for, when does the World Cup start, who is Payne, 48 teams, 104 matches, five-second throw-in rule, heat breaks, sub timer, VAR, Mexico jersey, soccer ball, World Cup merchandise, Panini World Cup sticker album
+  </div>
+</footer>
+
+<script>
+  // ── Intersection Observer for reveal animations ──
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  revealEls.forEach(el => io.observe(el));
+
+  // ── Popup logic ──
+  (function() {
+    const popup = document.getElementById('newReaderPopup');
+    const closeBtn = document.getElementById('popupClose');
+
+    // Check if user has dismissed this popup before
+    const dismissed = localStorage.getItem('chronicle_popup_dismissed_v3');
+    if (!dismissed) {
+      // Show popup after 2.5 seconds
+      setTimeout(() => {
+        popup.classList.add('show');
+      }, 2500);
+    }
+
+    // Close function
+    function dismissPopup() {
+      popup.classList.remove('show');
+      localStorage.setItem('chronicle_popup_dismissed_v3', 'true');
+    }
+
+    closeBtn.addEventListener('click', dismissPopup);
+
+    // Close on click outside the popup (click on overlay itself)
+    popup.addEventListener('click', function(e) {
+      if (e.target === this) {
+        dismissPopup();
+      }
+    });
+
+    // Also close if user clicks the "Read Issue 001" link — they'll navigate away anyway
+    const readBtn = popup.querySelector('.popup-btn');
+    if (readBtn) {
+      readBtn.addEventListener('click', function() {
+        localStorage.setItem('chronicle_popup_dismissed_v3', 'true');
+      });
+    }
+  })();
+</script>
+
+</body>
+</html>
