@@ -39,6 +39,8 @@
     --card-bg: #ffffff;
     --sans: 'DM Sans', sans-serif;
     --serif: 'Playfair Display', Georgia, serif;
+    --x-blue: #1d9bf0;
+    --x-dark: #0d0d0d;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -182,7 +184,61 @@
   .beat-card h3 { font-family: var(--serif); font-size: 1.12rem; font-weight: 700; margin-bottom: 8px; }
   .beat-card p { font-size: 0.9rem; color: #555; line-height: 1.6; }
 
-  /* ── ARCHIVE ── */
+  /* ── TRENDS SECTION ── */
+  .trends-grid {
+    max-width: 1100px; margin: 0 auto; padding: 28px 40px 16px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;
+  }
+
+  .trend-card {
+    border: 2px solid var(--ink); background: white; padding: 22px 24px;
+    transition: transform 0.2s, box-shadow 0.2s; text-decoration: none; color: var(--ink);
+    display: block;
+  }
+  .trend-card:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--x-blue); border-color: var(--x-blue); }
+  .trend-card .trend-rank {
+    font-family: var(--serif); font-weight: 900; font-size: 1.8rem; color: var(--rule);
+    display: block; line-height: 1; margin-bottom: 6px;
+  }
+  .trend-card .trend-title {
+    font-family: var(--serif); font-weight: 700; font-size: 1.05rem; display: block; margin-bottom: 4px;
+  }
+  .trend-card .trend-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .trend-card .trend-badge {
+    display: inline-block; background: var(--x-blue); color: white;
+    font-size: 9px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    padding: 2px 12px; border-radius: 12px; margin-top: 8px;
+  }
+
+  .trend-archive-wrap { max-width: 1100px; margin: 0 auto; padding: 8px 40px 30px; }
+  .trend-archive-list { border-top: 2px solid var(--ink); }
+
+  .trend-row {
+    display: flex; align-items: flex-start; gap: 22px; text-decoration: none; color: var(--ink);
+    padding: 18px 0; border-bottom: 1px solid var(--rule); transition: background 0.15s;
+  }
+  .trend-row:hover { background: var(--cream); }
+  .trend-row:hover .trend-row-title { color: var(--x-blue); }
+
+  .trend-row-num {
+    font-family: var(--serif); font-weight: 900; font-size: 1.2rem; color: var(--rule);
+    min-width: 70px; flex-shrink: 0;
+  }
+  .trend-row-info { flex: 1; min-width: 0; }
+  .trend-row-title { font-family: var(--serif); font-weight: 700; font-size: 1rem; display: block; }
+  .trend-row-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.5; }
+  .trend-row-arrow { font-size: 1.1rem; color: var(--x-blue); flex-shrink: 0; padding-top: 2px; }
+
+  .trend-archive-status { padding: 30px 0; text-align: center; color: var(--muted); font-size: 0.92rem; letter-spacing: 0.04em; }
+  .trend-archive-note { text-align: center; padding: 12px 0 6px; font-size: 0.85rem; color: var(--muted); }
+
+  .x-attribution {
+    font-size: 11px; color: var(--muted); text-align: center; padding: 4px 0 12px;
+  }
+  .x-attribution a { color: var(--x-blue); text-decoration: none; }
+  .x-attribution a:hover { text-decoration: underline; }
+
+  /* ── ARCHIVE (Volumes) ── */
   .archive-wrap { max-width: 1100px; margin: 0 auto; padding: 28px 40px 20px; }
 
   .archive-list { border-top: 2px solid var(--ink); }
@@ -205,13 +261,8 @@
 
   .issue-arrow { font-size: 1.3rem; color: var(--accent); flex-shrink: 0; padding-top: 4px; }
 
-  .archive-status {
-    padding: 30px 0; text-align: center; color: var(--muted); font-size: 0.92rem; letter-spacing: 0.04em;
-  }
-
-  .archive-note {
-    text-align: center; padding: 20px 0 6px; font-size: 0.88rem; color: var(--muted);
-  }
+  .archive-status { padding: 30px 0; text-align: center; color: var(--muted); font-size: 0.92rem; letter-spacing: 0.04em; }
+  .archive-note { text-align: center; padding: 20px 0 6px; font-size: 0.88rem; color: var(--muted); }
 
   /* ── ABOUT ── */
   .about-wrap { max-width: 760px; margin: 0 auto; padding: 30px 40px 60px; }
@@ -227,12 +278,12 @@
     .hero { grid-template-columns: 1fr; padding: 30px 20px; gap: 24px; }
     .hero-divider { display: none; }
     .hero-sidebar { padding-left: 0; }
-    .section-rule, .section-intro, .beats-grid, .archive-wrap, .about-wrap { padding-left: 20px; padding-right: 20px; }
+    .section-rule, .section-intro, .beats-grid, .trends-grid, .trend-archive-wrap, .archive-wrap, .about-wrap { padding-left: 20px; padding-right: 20px; }
     .masthead-top { padding: 10px 20px; font-size: 10px; }
     .masthead-title { padding: 24px 20px; }
     .nav-strip { gap: 18px; padding: 14px 20px; }
-    .issue-row { gap: 14px; }
-    .issue-num { min-width: 60px; font-size: 1.2rem; }
+    .issue-row, .trend-row { gap: 14px; }
+    .issue-num, .trend-row-num { min-width: 50px; font-size: 1rem; }
   }
 
   /* ── ANIMATION ── */
@@ -264,6 +315,7 @@
   <nav class="nav-strip" aria-label="Site navigation">
     <a href="vol.html" class="nav-cta">→ Latest Issue</a>
     <a href="#beats">The Beats</a>
+    <a href="#trends">X Trends</a>
     <a href="#archive">Archive</a>
     <a href="#about">About</a>
   </nav>
@@ -305,8 +357,18 @@
             <span class="stat-label">Issues Published</span>
           </div>
           <div class="stat-box">
-            <span class="stat-number">100</span>
+            <span class="stat-number" id="statTrends">—</span>
+            <span class="stat-label">X Trends Published</span>
+          </div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-box">
+            <span class="stat-number">100+</span>
             <span class="stat-label">Issues Planned</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">∞</span>
+            <span class="stat-label">Trends · Weekly</span>
           </div>
         </div>
         <div class="sidebar-box">
@@ -317,11 +379,17 @@
           <h3 style="color: white;">No Archive Anxiety</h3>
           <p style="color: rgba(255,255,255,0.85);">Bookmark <strong>vol.html</strong> instead of any single issue — it always opens on whatever we've published most recently.</p>
         </div>
+        <div class="sidebar-box" style="background: var(--x-blue);">
+          <h3 style="color: white;">🐦 X Weekly Trends</h3>
+          <p style="color: rgba(255,255,255,0.85);">Bookmark <strong>trend.html</strong> to always land on the latest X trend analysis, published weekly.</p>
+        </div>
       </aside>
     </div>
   </article>
 
+  <!-- ============================================================ -->
   <!-- BEATS WE COVER -->
+  <!-- ============================================================ -->
   <div id="beats">
     <div class="section-rule inview">
       <span class="label">The Beats</span>
@@ -384,7 +452,44 @@
     </div>
   </div>
 
-  <!-- ARCHIVE -->
+  <!-- ============================================================ -->
+  <!-- WEEKLY X TRENDS — TOP 7 + ARCHIVE -->
+  <!-- ============================================================ -->
+  <div id="trends">
+    <div class="section-rule inview">
+      <span class="label">🐦 X Trends</span>
+      <div class="rule-line"></div>
+      <span class="label">Weekly Dispatch</span>
+      <div class="rule-line"></div>
+    </div>
+
+    <div class="section-intro inview">
+      <h2>Weekly X Trends <span class="highlight-word">— Top 7</span></h2>
+      <p>Every week we pull the most discussed topics on X (formerly Twitter) and break down what they mean for researchers, data collectors, and anyone trying to understand the conversation. The top 7 are featured here; the full archive lives below.</p>
+    </div>
+
+    <!-- Top 7 Trends Grid -->
+    <div class="trends-grid" id="trendsGrid">
+      <div class="trend-archive-status" id="trendsStatus">Loading weekly X trends…</div>
+    </div>
+
+    <div class="x-attribution">
+      <span>🐦 X trends are sourced from the public API and updated weekly. </span>
+      <a href="trend.html">→ Latest Trend</a>
+    </div>
+
+    <!-- Trends Archive (all trends) -->
+    <div class="trend-archive-wrap">
+      <div class="trend-archive-list" id="trendArchiveList">
+        <div class="trend-archive-status" id="trendArchiveStatus">Loading trend archive…</div>
+      </div>
+      <p class="trend-archive-note" id="trendArchiveNote"></p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- VOLUME ARCHIVE -->
+  <!-- ============================================================ -->
   <div id="archive">
     <div class="section-rule inview">
       <span class="label">The Archive</span>
@@ -406,7 +511,9 @@
     </div>
   </div>
 
+  <!-- ============================================================ -->
   <!-- ABOUT -->
+  <!-- ============================================================ -->
   <div id="about">
     <div class="section-rule inview">
       <span class="label">Masthead Note</span>
@@ -431,11 +538,15 @@
   <p>© 2026 The Survey Chronicle ·
   <a href="index.html">Front Page</a> ·
   <a href="vol.html">Latest Issue</a> ·
+  <a href="trend.html">Latest Trend</a> ·
   <a href="#archive">Archive</a> ·
   <a href="#about">About</a>
   </p>
 </footer>
 
+<!-- ============================================================ -->
+<!-- SCRIPTS -->
+<!-- ============================================================ -->
 <script>
   // ── In-view fade animation ──
   const observer = new IntersectionObserver((entries) => {
@@ -448,18 +559,34 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.inview').forEach(el => observer.observe(el));
 
-  // ── Archive: detect every issue that actually exists, then list it ──
-  // Assumes vol1.html, vol2.html, vol3.html ... are published in order with no
-  // gaps in the numbering. Stops probing once it finds the first missing volume.
-  const MAX_VOL = 100;
+  // ── Utility: fetch with cache-busting ──
+  async function fetchWithCache(url) {
+    const res = await fetch(url, { method: 'GET', cache: 'no-store' });
+    return res.ok ? await res.text() : null;
+  }
 
+  // ── Detect volumes dynamically ──
   async function volExists(n) {
     try {
-      const res = await fetch(`/vol${n}.html`, { method: 'GET', cache: 'no-store' });
+      const res = await fetch(`/vol${n}.html`, { method: 'HEAD', cache: 'no-store' });
       return res.ok;
-    } catch (e) {
-      return false;
+    } catch (e) { return false; }
+  }
+
+  async function findLatestVolume() {
+    if (!(await volExists(1))) return 0;
+    let lo = 1, hi = 1000;
+    if (await volExists(hi)) {
+      // Beyond 1000 — keep climbing
+      let n = hi + 1;
+      while (await volExists(n)) n++;
+      return n - 1;
     }
+    while (hi - lo > 1) {
+      const mid = Math.floor((lo + hi) / 2);
+      if (await volExists(mid)) lo = mid; else hi = mid;
+    }
+    return lo;
   }
 
   function decodeEntities(str) {
@@ -476,6 +603,7 @@
     return { title, desc };
   }
 
+  // ── Load Volume Archive ──
   async function loadArchive() {
     const listEl = document.getElementById('archiveList');
     const statusEl = document.getElementById('archiveStatus');
@@ -484,15 +612,11 @@
 
     const found = [];
     let n = 1;
-    while (n <= MAX_VOL) {
-      const res = await (async () => {
-        try {
-          const r = await fetch(`/vol${n}.html`, { method: 'GET', cache: 'no-store' });
-          return r.ok ? await r.text() : null;
-        } catch (e) { return null; }
-      })();
-      if (!res) break;
-      found.push({ n, html: res });
+    let maxCheck = 2000;
+    while (n <= maxCheck) {
+      const html = await fetchWithCache(`/vol${n}.html`);
+      if (!html) break;
+      found.push({ n, html });
       n++;
     }
 
@@ -524,14 +648,110 @@
       listEl.appendChild(a);
     });
 
-    if (found.length < MAX_VOL) {
-      noteEl.textContent = `${MAX_VOL - found.length} more issue${MAX_VOL - found.length === 1 ? '' : 's'} planned — this list updates itself as each one goes live.`;
+    const totalPlanned = 100;
+    if (found.length < totalPlanned) {
+      noteEl.textContent = `${totalPlanned - found.length} more issue${totalPlanned - found.length === 1 ? '' : 's'} planned — this list updates itself as each one goes live.`;
     } else {
       noteEl.textContent = 'The full run — all planned issues are live.';
     }
   }
 
+  // ── Detect trends dynamically ──
+  async function trendExists(n) {
+    try {
+      const res = await fetch(`/trend${n}.html`, { method: 'HEAD', cache: 'no-store' });
+      return res.ok;
+    } catch (e) { return false; }
+  }
+
+  async function findLatestTrend() {
+    if (!(await trendExists(1))) return 0;
+    let lo = 1, hi = 1000;
+    if (await trendExists(hi)) {
+      let n = hi + 1;
+      while (await trendExists(n)) n++;
+      return n - 1;
+    }
+    while (hi - lo > 1) {
+      const mid = Math.floor((lo + hi) / 2);
+      if (await trendExists(mid)) lo = mid; else hi = mid;
+    }
+    return lo;
+  }
+
+  // ── Load Trends (Top 7 + Archive) ──
+  async function loadTrends() {
+    const gridEl = document.getElementById('trendsGrid');
+    const archiveListEl = document.getElementById('trendArchiveList');
+    const statusEl = document.getElementById('trendsStatus');
+    const archiveStatusEl = document.getElementById('trendArchiveStatus');
+    const noteEl = document.getElementById('trendArchiveNote');
+    const statTrends = document.getElementById('statTrends');
+
+    const found = [];
+    let n = 1;
+    let maxCheck = 1000;
+    while (n <= maxCheck) {
+      const html = await fetchWithCache(`/trend${n}.html`);
+      if (!html) break;
+      found.push({ n, html });
+      n++;
+    }
+
+    statTrends.textContent = found.length;
+
+    if (found.length === 0) {
+      gridEl.innerHTML = `<div class="trend-archive-status">No X trends published yet — check back weekly.</div>`;
+      archiveStatusEl.textContent = 'No trends in archive.';
+      noteEl.textContent = '';
+      return;
+    }
+
+    // --- Top 7: show the 7 most recent ---
+    const top7 = found.slice(-7).reverse();
+    gridEl.innerHTML = '';
+    top7.forEach(({ n, html }, idx) => {
+      const meta = extractMeta(html);
+      const num = String(n).padStart(3, '0');
+      const div = document.createElement('a');
+      div.className = 'trend-card inview';
+      div.href = `trend${n}.html`;
+      div.innerHTML = `
+        <span class="trend-rank">#${idx + 1}</span>
+        <span class="trend-title">${meta.title || `Trend ${num}`}</span>
+        <span class="trend-desc">${meta.desc || 'Weekly X trend analysis.'}</span>
+        <span class="trend-badge">🐦 X Trend ${num}</span>
+      `;
+      gridEl.appendChild(div);
+      observer.observe(div);
+    });
+
+    // --- Archive: all trends (newest first) ---
+    archiveStatusEl.remove();
+    archiveListEl.innerHTML = '';
+    found.reverse().forEach(({ n, html }) => {
+      const meta = extractMeta(html);
+      const num = String(n).padStart(3, '0');
+      const a = document.createElement('a');
+      a.className = 'trend-row';
+      a.href = `trend${n}.html`;
+      a.innerHTML = `
+        <span class="trend-row-num">№ ${num}</span>
+        <span class="trend-row-info">
+          <span class="trend-row-title">${meta.title || `Trend ${num}`}</span>
+          <span class="trend-row-desc">${meta.desc || 'Weekly X trend analysis.'}</span>
+        </span>
+        <span class="trend-row-arrow">→</span>
+      `;
+      archiveListEl.appendChild(a);
+    });
+
+    noteEl.textContent = `${found.length} trend${found.length === 1 ? '' : 's'} published. New trends drop weekly.`;
+  }
+
+  // ── Run everything ──
   loadArchive();
+  loadTrends();
 </script>
 
 </body>
