@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Survey Chronicle — A Running Investigation Into Survey Research, Issue by Issue</title>
+<meta name="description" content="The Survey Chronicle catalogues every way survey research breaks — paywalls, bot respondents, dead response rates, biased questions — and the fixes that hold up in real fieldwork. New issue, new horror story, every time.">
+<meta name="robots" content="index, follow">
+<meta name="author" content="The Survey Chronicle Editorial">
+<link rel="canonical" href="/index.html">
+
+<meta property="og:type" content="website">
+<meta property="og:title" content="The Survey Chronicle">
+<meta property="og:description" content="A running, issue-by-issue investigation into everything that goes wrong when researchers try to collect data — and what actually fixes it.">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "The Survey Chronicle",
+  "description": "A running investigation into survey research problems and fixes, published issue by issue.",
+  "publisher": {"@type": "Organization", "name": "The Survey Chronicle"}
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --cream: #ede8dc;
+    --accent: #c8401b;
+    --accent2: #1b4fc8;
+    --muted: #6b6258;
+    --rule: #c8b89a;
+    --highlight: #fff3b0;
+    --card-bg: #ffffff;
+    --sans: 'DM Sans', sans-serif;
+    --serif: 'Playfair Display', Georgia, serif;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 17px;
+    line-height: 1.75;
+    overflow-x: hidden;
+  }
+
+  a { color: inherit; }
+
+  /* ── MASTHEAD ── */
+  .masthead { background: var(--ink); color: var(--paper); border-bottom: 4px solid var(--accent); }
+
+  .masthead-top {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 10px 40px; border-bottom: 1px solid #333;
+    font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #aaa;
+  }
+
+  .masthead-title { text-align: center; padding: 34px 40px 22px; }
+
+  .masthead-title .pub-name {
+    font-family: var(--serif); font-size: clamp(2.6rem, 9vw, 6.4rem);
+    font-weight: 900; letter-spacing: -0.02em; line-height: 1; color: var(--paper); display: block;
+  }
+
+  .masthead-title .pub-tagline {
+    font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--rule);
+    margin-top: 10px; display: block; max-width: 640px; margin-left: auto; margin-right: auto; line-height: 1.6;
+  }
+
+  .nav-strip {
+    display: flex; justify-content: center; gap: 36px; flex-wrap: wrap;
+    padding: 16px 40px; border-top: 1px solid #2a2a2a; font-size: 12px;
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+
+  .nav-strip a { color: #bbb; text-decoration: none; transition: color 0.15s; }
+  .nav-strip a:hover { color: var(--highlight); }
+  .nav-strip a.nav-cta { color: var(--highlight); font-weight: 600; }
+
+  .ticker-bar {
+    background: var(--accent); color: white; font-size: 12px; letter-spacing: 0.08em;
+    text-transform: uppercase; padding: 8px 0; overflow: hidden; white-space: nowrap;
+  }
+
+  .ticker-inner { display: inline-block; padding-left: 100%; animation: ticker 38s linear infinite; }
+  @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 1100px; margin: 0 auto; padding: 60px 40px 20px;
+    display: grid; grid-template-columns: 1fr 1px 360px; gap: 0 40px;
+  }
+
+  .hero-divider { background: var(--rule); }
+
+  .hero-kicker {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 14px; display: block;
+  }
+
+  .hero h1 {
+    font-family: var(--serif); font-size: clamp(2.1rem, 4.2vw, 3.6rem); font-weight: 700;
+    line-height: 1.12; margin-bottom: 20px; letter-spacing: -0.01em;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--accent); }
+
+  .hero-byline {
+    font-size: 13px; color: var(--muted); border-top: 2px solid var(--ink);
+    border-bottom: 1px solid var(--rule); padding: 10px 0; margin-bottom: 24px;
+  }
+
+  .hero-lead { font-family: var(--serif); font-size: 1.2rem; line-height: 1.6; color: #2a2a2a; margin-bottom: 20px; }
+
+  .hero-body p { margin-bottom: 16px; font-size: 1rem; color: #333; max-width: 64ch; }
+
+  .highlight-box {
+    background: var(--highlight); border: 2px solid #d4a017; padding: 22px 28px; margin: 26px 0; max-width: 640px;
+  }
+  .highlight-box strong { color: var(--accent); }
+
+  .hero-sidebar { padding-left: 40px; }
+
+  .sidebar-box { background: var(--ink); color: var(--paper); padding: 24px; margin-bottom: 22px; }
+  .sidebar-box h3 { font-family: var(--serif); font-size: 1.05rem; font-weight: 700; margin-bottom: 12px; color: var(--highlight); }
+  .sidebar-box p { font-size: 13px; color: #ccc; line-height: 1.65; }
+
+  .stat-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 22px; }
+
+  .stat-box { border: 3px solid var(--ink); padding: 18px 10px; text-align: center; background: white; }
+  .stat-number { font-family: var(--serif); font-size: 2.6rem; font-weight: 900; color: var(--accent); line-height: 1; display: block; }
+  .stat-label { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-top: 6px; display: block; }
+
+  .cta-btn {
+    display: inline-block; background: var(--accent); color: white; font-weight: 600; font-size: 14px;
+    letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; padding: 16px 32px;
+    border: none; cursor: pointer; transition: background 0.2s, transform 0.15s;
+    box-shadow: 4px 4px 0 rgba(0,0,0,0.15);
+  }
+  .cta-btn:hover { background: #a8321a; transform: translate(-1px, -1px); box-shadow: 5px 5px 0 rgba(0,0,0,0.2); }
+
+  /* ── SECTION RULES ── */
+  .section-rule {
+    max-width: 1100px; margin: 50px auto 0; padding: 0 40px;
+    border-top: 3px solid var(--ink); display: flex; align-items: center; gap: 20px;
+  }
+  .section-rule .label {
+    background: var(--ink); color: var(--paper); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.2em; text-transform: uppercase; padding: 5px 14px; white-space: nowrap;
+  }
+  .section-rule .rule-line { flex: 1; height: 1px; background: var(--rule); }
+
+  .section-intro { max-width: 1100px; margin: 0 auto; padding: 36px 40px 8px; }
+  .section-intro h2 {
+    font-family: var(--serif); font-size: clamp(1.6rem, 3vw, 2.3rem); font-weight: 700;
+    margin-bottom: 14px; letter-spacing: -0.01em; line-height: 1.2;
+  }
+  .section-intro .highlight-word { background: var(--highlight); padding: 0 4px; }
+  .section-intro p { max-width: 72ch; color: #333; font-size: 1rem; }
+
+  /* ── BEATS GRID ── */
+  .beats-grid {
+    max-width: 1100px; margin: 0 auto; padding: 28px 40px 40px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px;
+  }
+
+  .beat-card {
+    border: 2px solid var(--ink); background: white; padding: 26px;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .beat-card:hover { transform: translate(-3px, -3px); box-shadow: 6px 6px 0 var(--ink); }
+  .beat-card .beat-icon { font-size: 1.8rem; display: block; margin-bottom: 12px; }
+  .beat-card h3 { font-family: var(--serif); font-size: 1.12rem; font-weight: 700; margin-bottom: 8px; }
+  .beat-card p { font-size: 0.9rem; color: #555; line-height: 1.6; }
+
+  /* ── ARCHIVE ── */
+  .archive-wrap { max-width: 1100px; margin: 0 auto; padding: 28px 40px 20px; }
+
+  .archive-list { border-top: 2px solid var(--ink); }
+
+  .issue-row {
+    display: flex; align-items: flex-start; gap: 22px; text-decoration: none; color: var(--ink);
+    padding: 22px 0; border-bottom: 1px solid var(--rule); transition: background 0.15s;
+  }
+  .issue-row:hover { background: var(--cream); }
+  .issue-row:hover .issue-title { color: var(--accent); }
+
+  .issue-num {
+    font-family: var(--serif); font-weight: 900; font-size: 1.5rem; color: var(--rule);
+    min-width: 86px; flex-shrink: 0;
+  }
+
+  .issue-info { flex: 1; min-width: 0; }
+  .issue-title { font-family: var(--serif); font-weight: 700; font-size: 1.15rem; margin-bottom: 6px; display: block; }
+  .issue-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.55; }
+
+  .issue-arrow { font-size: 1.3rem; color: var(--accent); flex-shrink: 0; padding-top: 4px; }
+
+  .archive-status {
+    padding: 30px 0; text-align: center; color: var(--muted); font-size: 0.92rem; letter-spacing: 0.04em;
+  }
+
+  .archive-note {
+    text-align: center; padding: 20px 0 6px; font-size: 0.88rem; color: var(--muted);
+  }
+
+  /* ── ABOUT ── */
+  .about-wrap { max-width: 760px; margin: 0 auto; padding: 30px 40px 60px; }
+  .about-wrap p { color: #333; margin-bottom: 16px; font-size: 1rem; }
+  .about-wrap .ornament { text-align: center; color: var(--rule); font-size: 1.4rem; margin: 24px 0; letter-spacing: 0.5em; }
+
+  /* ── FOOTER ── */
+  footer { background: #111; color: #888; text-align: center; padding: 40px; font-size: 13px; }
+  footer a { color: #aaa; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; padding: 30px 20px; gap: 24px; }
+    .hero-divider { display: none; }
+    .hero-sidebar { padding-left: 0; }
+    .section-rule, .section-intro, .beats-grid, .archive-wrap, .about-wrap { padding-left: 20px; padding-right: 20px; }
+    .masthead-top { padding: 10px 20px; font-size: 10px; }
+    .masthead-title { padding: 24px 20px; }
+    .nav-strip { gap: 18px; padding: 14px 20px; }
+    .issue-row { gap: 14px; }
+    .issue-num { min-width: 60px; font-size: 1.2rem; }
+  }
+
+  /* ── ANIMATION ── */
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+  .hero h1, .hero-lead { animation: fadeUp 0.7s ease both; }
+  .hero h1 { animation-delay: 0.1s; }
+  .hero-lead { animation-delay: 0.25s; }
+
+  .inview { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .inview.visible { opacity: 1; transform: translateY(0); }
+
+  .skel { background: linear-gradient(90deg, #e7e0d2 25%, #f1ebe0 37%, #e7e0d2 63%); background-size: 400% 100%; animation: skel 1.4s ease infinite; }
+  @keyframes skel { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead" role="banner">
+  <div class="masthead-top">
+    <span>Est. 2026 · Independent Research Desk</span>
+    <span>The Issue Index</span>
+    <span>Free to Read · No Sign-Up</span>
+  </div>
+  <div class="masthead-title">
+    <span class="pub-name">The Survey Chronicle</span>
+    <span class="pub-tagline">A running, issue-by-issue investigation into everything that goes wrong when researchers try to ask people questions — and what actually fixes it</span>
+  </div>
+  <nav class="nav-strip" aria-label="Site navigation">
+    <a href="vol.html" class="nav-cta">→ Latest Issue</a>
+    <a href="#beats">The Beats</a>
+    <a href="#archive">Archive</a>
+    <a href="#about">About</a>
+  </nav>
+  <div class="ticker-bar">
+    <span class="ticker-inner">
+      🔴 ON THE DESK: response caps that kill momentum mid-fieldwork · bot respondents poisoning clean datasets · six-week response droughts · branding fees that ambush your budget · biased question wording nobody catches until the data's in · sample sizes too small to mean anything · this week's issue is below ↓
+    </span>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <article>
+    <div class="hero">
+      <div class="hero-main">
+        <span class="hero-kicker">Front Page · The Index</span>
+        <h1>Every Researcher Has a Survey Horror Story. <em>We're Cataloguing All of Them.</em></h1>
+        <div class="hero-byline">The Survey Chronicle Editorial Desk · Updated continuously · New issue, new failure mode</div>
+        <p class="hero-lead">
+          Survey platforms sell the idea that collecting data is simple. Anyone who has actually run a study knows the truth: the response cap that hits mid-fieldwork, the dataset that turns out to be a third bots, the six-week silence after launch, the branding fee that ambushes your budget right before submission.
+        </p>
+        <div class="hero-body">
+          <p>The Survey Chronicle is a standing investigation into where survey research actually breaks. Each issue takes one failure mode — a paywall trap, a fraud problem, a design flaw, a recruitment dead end — and dissects it: why it happens, what it costs researchers in time and data quality, and what a real fix looks like in practice.</p>
+          <p>We're not writing a single buyer's guide. We're building an archive. Every issue stands on its own, and the index below grows as fast as we can publish — currently planned through Issue 100.</p>
+          <div class="highlight-box">
+            <strong>New here?</strong> Start with the latest dispatch — it's always the most current failure mode we've dug into, with the fixes that held up under real fieldwork.
+          </div>
+          <a href="vol.html" class="cta-btn">Read the Latest Issue →</a>
+        </div>
+      </div>
+
+      <div class="hero-divider"></div>
+
+      <aside class="hero-sidebar" aria-label="Publication stats">
+        <div class="stat-row">
+          <div class="stat-box">
+            <span class="stat-number" id="statIssues">—</span>
+            <span class="stat-label">Issues Published</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">100</span>
+            <span class="stat-label">Issues Planned</span>
+          </div>
+        </div>
+        <div class="sidebar-box">
+          <h3>What this is</h3>
+          <p>A free, ongoing series cataloguing the real problems researchers hit when designing surveys and collecting data — and the solutions that actually hold up, issue by issue.</p>
+        </div>
+        <div class="sidebar-box" style="background: var(--accent);">
+          <h3 style="color: white;">No Archive Anxiety</h3>
+          <p style="color: rgba(255,255,255,0.85);">Bookmark <strong>vol.html</strong> instead of any single issue — it always opens on whatever we've published most recently.</p>
+        </div>
+      </aside>
+    </div>
+  </article>
+
+  <!-- BEATS WE COVER -->
+  <div id="beats">
+    <div class="section-rule inview">
+      <span class="label">The Beats</span>
+      <div class="rule-line"></div>
+      <span class="label">What We Cover</span>
+      <div class="rule-line"></div>
+    </div>
+
+    <div class="section-intro inview">
+      <h2>The Problems That Show Up <span class="highlight-word">In Every Newsroom Tip</span></h2>
+      <p>These are the failure modes that keep landing on the desk, across disciplines and platforms. Each one gets its own deep-dive issue, sooner or later.</p>
+    </div>
+
+    <div class="beats-grid">
+      <div class="beat-card inview">
+        <span class="beat-icon">🚧</span>
+        <h3>The Paywall Trap</h3>
+        <p>"Free" plans that cap responses, questions, or exports right when fieldwork gets serious — then charge ambush prices to unlock your own data.</p>
+      </div>
+      <div class="beat-card inview">
+        <span class="beat-icon">🤖</span>
+        <h3>Bots &amp; Fake Respondents</h3>
+        <p>Open survey links that quietly fill with bots, duplicate IPs, and disengaged satisficers long before a real person reads a single response.</p>
+      </div>
+      <div class="beat-card inview">
+        <span class="beat-icon">🏃</span>
+        <h3>Survey Fatigue &amp; Abandonment</h3>
+        <p>Long, clunky, or repetitive instruments that lose half their audience before question ten — and what actually keeps respondents through to submit.</p>
+      </div>
+      <div class="beat-card inview">
+        <span class="beat-icon">📐</span>
+        <h3>Sample Size &amp; Margin of Error</h3>
+        <p>Drawing real conclusions from too few responses, or never knowing how many you actually needed in the first place.</p>
+      </div>
+      <div class="beat-card inview">
+        <span class="beat-icon">⚖️</span>
+        <h3>Leading &amp; Biased Questions</h3>
+        <p>Wording, ordering, and scale choices that quietly tilt the answers before a single respondent ever sees the form.</p>
+      </div>
+      <div class="beat-card inview">
+        <span class="beat-icon">📉</span>
+        <h3>Low Response Rates</h3>
+        <p>Recruitment channels, incentives, and timing decisions that decide whether a survey gets answered at all.</p>
+      </div>
+      <div class="beat-card inview">
+        <span class="beat-icon">🏷️</span>
+        <h3>Branding &amp; White-Label Costs</h3>
+        <p>Logo-removal fees, vanity domains, and "professional" themes locked behind enterprise-only tiers.</p>
+      </div>
+      <div class="beat-card inview">
+        <span class="beat-icon">🔒</span>
+        <h3>Data Ownership &amp; Export</h3>
+        <p>Formats, lock-in, and compliance rules that make it harder than it should be to actually use the data you collected.</p>
+      </div>
+      <div class="beat-card inview">
+        <span class="beat-icon">🌍</span>
+        <h3>Multi-Language &amp; Accessibility Gaps</h3>
+        <p>Instruments that work fine in English on a laptop, and quietly fall apart everywhere else.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ARCHIVE -->
+  <div id="archive">
+    <div class="section-rule inview">
+      <span class="label">The Archive</span>
+      <div class="rule-line"></div>
+      <span class="label">Back Issues</span>
+      <div class="rule-line"></div>
+    </div>
+
+    <div class="section-intro inview">
+      <h2>Every Issue, <span class="highlight-word">In Order</span></h2>
+      <p>Numbered by publication order — start anywhere, but the latest issue (top of the list) is usually the freshest failure mode on the desk.</p>
+    </div>
+
+    <div class="archive-wrap">
+      <div class="archive-list" id="archiveList">
+        <div class="archive-status" id="archiveStatus">Opening the archive…</div>
+      </div>
+      <p class="archive-note" id="archiveNote"></p>
+    </div>
+  </div>
+
+  <!-- ABOUT -->
+  <div id="about">
+    <div class="section-rule inview">
+      <span class="label">Masthead Note</span>
+      <div class="rule-line"></div>
+      <span class="label">About</span>
+      <div class="rule-line"></div>
+    </div>
+
+    <div class="about-wrap inview">
+      <p>The Survey Chronicle started from a simple observation: almost every guide to survey tools is written to sell you one. Almost none of them sit with the actual failure — the capped plan, the fraudulent respondent pool, the question that quietly biased six months of fieldwork — long enough to explain why it happened and what a durable fix looks like.</p>
+      <p>So this is structured differently. Every issue is a single investigation, written by researchers for researchers, with no pretense that any one platform is right for every project. Where a tool genuinely solves the problem under discussion, we say so plainly. Where the honest answer is "design around it," we say that too.</p>
+      <div class="ornament">⁘ ⁘ ⁘</div>
+      <p>New issues go up as we finish reporting them, not on a fixed schedule. There's no newsletter to sign up for and no paywall on the archive — just bookmark <a href="vol.html" style="color: var(--accent); text-decoration: underline;">the latest issue</a> or this front page, and check back when you're stuck on your next survey.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>The Survey Chronicle is an independent, ongoing editorial series on survey research and data collection.</p>
+  <br>
+  <p>© 2026 The Survey Chronicle ·
+  <a href="index.html">Front Page</a> ·
+  <a href="vol.html">Latest Issue</a> ·
+  <a href="#archive">Archive</a> ·
+  <a href="#about">About</a>
+  </p>
+</footer>
+
+<script>
+  // ── In-view fade animation ──
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.inview').forEach(el => observer.observe(el));
+
+  // ── Archive: detect every issue that actually exists, then list it ──
+  // Assumes vol1.html, vol2.html, vol3.html ... are published in order with no
+  // gaps in the numbering. Stops probing once it finds the first missing volume.
+  const MAX_VOL = 100;
+
+  async function volExists(n) {
+    try {
+      const res = await fetch(`/vol${n}.html`, { method: 'GET', cache: 'no-store' });
+      return res.ok;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  function decodeEntities(str) {
+    const ta = document.createElement('textarea');
+    ta.innerHTML = str;
+    return ta.value;
+  }
+
+  function extractMeta(html) {
+    const titleMatch = html.match(/<title>([\s\S]*?)<\/title>/i);
+    const descMatch = html.match(/<meta\s+name=["']description["']\s+content=(["'])([\s\S]*?)\1/i);
+    let title = titleMatch ? decodeEntities(titleMatch[1]).split('|')[0].trim() : null;
+    let desc = descMatch ? decodeEntities(descMatch[2]).trim() : '';
+    return { title, desc };
+  }
+
+  async function loadArchive() {
+    const listEl = document.getElementById('archiveList');
+    const statusEl = document.getElementById('archiveStatus');
+    const noteEl = document.getElementById('archiveNote');
+    const statIssues = document.getElementById('statIssues');
+
+    const found = [];
+    let n = 1;
+    while (n <= MAX_VOL) {
+      const res = await (async () => {
+        try {
+          const r = await fetch(`/vol${n}.html`, { method: 'GET', cache: 'no-store' });
+          return r.ok ? await r.text() : null;
+        } catch (e) { return null; }
+      })();
+      if (!res) break;
+      found.push({ n, html: res });
+      n++;
+    }
+
+    statIssues.textContent = found.length;
+
+    if (found.length === 0) {
+      statusEl.textContent = 'No issues published yet — check back soon.';
+      noteEl.textContent = '';
+      return;
+    }
+
+    statusEl.remove();
+    listEl.innerHTML = '';
+
+    found.reverse().forEach(({ n, html }) => {
+      const meta = extractMeta(html);
+      const num = String(n).padStart(3, '0');
+      const a = document.createElement('a');
+      a.className = 'issue-row';
+      a.href = `vol${n}.html`;
+      a.innerHTML = `
+        <span class="issue-num">№ ${num}</span>
+        <span class="issue-info">
+          <span class="issue-title">${meta.title || `Issue ${num}`}</span>
+          <span class="issue-desc">${meta.desc || ''}</span>
+        </span>
+        <span class="issue-arrow">→</span>
+      `;
+      listEl.appendChild(a);
+    });
+
+    if (found.length < MAX_VOL) {
+      noteEl.textContent = `${MAX_VOL - found.length} more issue${MAX_VOL - found.length === 1 ? '' : 's'} planned — this list updates itself as each one goes live.`;
+    } else {
+      noteEl.textContent = 'The full run — all planned issues are live.';
+    }
+  }
+
+  loadArchive();
+</script>
+
+</body>
+</html>

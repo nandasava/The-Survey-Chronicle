@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>That Issue Isn't Out Yet | The Survey Chronicle</title>
+<meta name="robots" content="noindex, nofollow">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f5f0e8;
+    --accent: #c8401b;
+    --muted: #6b6258;
+    --rule: #c8b89a;
+    --highlight: #fff3b0;
+    --sans: 'DM Sans', sans-serif;
+    --serif: 'Playfair Display', Georgia, serif;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+  body {
+    background: var(--paper); color: var(--ink); font-family: var(--sans);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 40px 20px;
+  }
+  .stamp {
+    display: inline-block; border: 2px solid var(--accent); color: var(--accent);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;
+    padding: 5px 14px; transform: rotate(-3deg); margin-bottom: 22px;
+  }
+  h1 {
+    font-family: var(--serif); font-weight: 700; font-size: clamp(1.7rem, 5vw, 2.6rem);
+    margin-bottom: 16px; max-width: 24ch; line-height: 1.25;
+  }
+  p.lead {
+    font-family: var(--serif); font-style: italic; font-size: 1.05rem; color: #333;
+    max-width: 50ch; margin-bottom: 26px; line-height: 1.6;
+  }
+  .status {
+    font-size: 14px; color: var(--muted); margin-bottom: 26px; min-height: 20px;
+  }
+  .press {
+    width: 50px; height: 50px; border: 3px solid var(--rule); border-top-color: var(--accent);
+    border-radius: 50%; animation: spin 0.9s linear infinite; margin-bottom: 24px;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .links { font-size: 13px; color: var(--muted); }
+  .links a { color: var(--accent); text-decoration: underline; margin: 0 8px; }
+  .pub-name {
+    position: fixed; top: 24px; left: 0; right: 0; text-align: center;
+    font-family: var(--serif); font-weight: 700; font-size: 1rem; letter-spacing: 0.02em; color: var(--ink);
+  }
+</style>
+</head>
+<body>
+
+<div class="pub-name">The Survey Chronicle</div>
+
+<div class="stamp">Not In Print</div>
+<div class="press" aria-hidden="true"></div>
+<h1 id="headline">This issue hasn't gone to press yet</h1>
+<p class="lead">Either that volume hasn't been published, or the link is broken. We're sending you to the most recent issue we've actually printed.</p>
+<div class="status" id="status">Checking the archive…</div>
+<p class="links">
+  <a href="/vol.html">Latest issue</a> · <a href="/index.html">Front page</a>
+</p>
+
+<noscript>
+  <p class="links">JavaScript is off, so we can't auto-redirect. Try <a href="/vol1.html">Issue 001</a> or the <a href="/index.html">front page</a>.</p>
+</noscript>
+
+<script>
+  const MAX_VOL = 100;
+
+  async function volExists(n) {
+    try {
+      const res = await fetch(`/vol${n}.html`, { method: 'HEAD', cache: 'no-store' });
+      return res.ok;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  async function findLatestVolume() {
+    if (!(await volExists(1))) return 0;
+    let lo = 1, hi = MAX_VOL;
+    if (await volExists(hi)) return hi;
+    while (hi - lo > 1) {
+      const mid = Math.floor((lo + hi) / 2);
+      if (await volExists(mid)) lo = mid; else hi = mid;
+    }
+    return lo;
+  }
+
+  (async () => {
+    const statusEl = document.getElementById('status');
+    const headlineEl = document.getElementById('headline');
+    try {
+      const latest = await findLatestVolume();
+      if (latest === 0) {
+        headlineEl.textContent = 'No issues published yet';
+        statusEl.textContent = 'Taking you to the front page…';
+        setTimeout(() => window.location.replace('/index.html'), 900);
+        return;
+      }
+      const num = String(latest).padStart(3, '0');
+      statusEl.textContent = `Found Issue № ${num} — taking you there…`;
+      setTimeout(() => window.location.replace(`/vol${latest}.html`), 600);
+    } catch (e) {
+      statusEl.textContent = 'Sending you to the front page instead.';
+      setTimeout(() => window.location.replace('/index.html'), 900);
+    }
+  })();
+</script>
+
+</body>
+</html>
