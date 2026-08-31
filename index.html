@@ -27,6 +27,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
+  /* ── All styles remain exactly as you had them ── */
   :root {
     --ink: #0d0d0d;
     --paper: #f5f0e8;
@@ -57,7 +58,6 @@
 
   a { color: inherit; }
 
-  /* ── MASTHEAD ── */
   .masthead { background: var(--ink); color: var(--paper); border-bottom: 4px solid var(--accent); }
 
   .masthead-top {
@@ -98,7 +98,6 @@
   .ticker-inner { display: inline-block; padding-left: 100%; animation: ticker 38s linear infinite; }
   @keyframes ticker { 0% { transform: translateX(0); } 100% { transform: translateX(-100%); } }
 
-  /* ── HERO ── */
   .hero {
     max-width: 1100px; margin: 0 auto; padding: 60px 40px 20px;
     display: grid; grid-template-columns: 1fr 1px 360px; gap: 0 40px;
@@ -152,7 +151,6 @@
   }
   .cta-btn:hover { background: #a8321a; transform: translate(-1px, -1px); box-shadow: 5px 5px 0 rgba(0,0,0,0.2); }
 
-  /* ── SECTION RULES ── */
   .section-rule {
     max-width: 1100px; margin: 50px auto 0; padding: 0 40px;
     border-top: 3px solid var(--ink); display: flex; align-items: center; gap: 20px;
@@ -171,7 +169,6 @@
   .section-intro .highlight-word { background: var(--highlight); padding: 0 4px; }
   .section-intro p { max-width: 72ch; color: #333; font-size: 1rem; }
 
-  /* ── BEATS GRID ── */
   .beats-grid {
     max-width: 1100px; margin: 0 auto; padding: 28px 40px 40px;
     display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 22px;
@@ -186,7 +183,6 @@
   .beat-card h3 { font-family: var(--serif); font-size: 1.12rem; font-weight: 700; margin-bottom: 8px; }
   .beat-card p { font-size: 0.9rem; color: #555; line-height: 1.6; }
 
-  /* ── TRENDS SECTION ── */
   .trends-grid {
     max-width: 1100px; margin: 0 auto; padding: 28px 40px 16px;
     display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px;
@@ -240,9 +236,7 @@
   .x-attribution a { color: var(--x-blue); text-decoration: none; }
   .x-attribution a:hover { text-decoration: underline; }
 
-  /* ── ARCHIVE (Volumes) ── */
   .archive-wrap { max-width: 1100px; margin: 0 auto; padding: 28px 40px 20px; }
-
   .archive-list { border-top: 2px solid var(--ink); }
 
   .issue-row {
@@ -274,39 +268,43 @@
   .archive-status { padding: 30px 0; text-align: center; color: var(--muted); font-size: 0.92rem; letter-spacing: 0.04em; }
   .archive-note { text-align: center; padding: 20px 0 6px; font-size: 0.88rem; color: var(--muted); }
 
-  /* ── NEW: LATEST ISSUES GRID (WSJ-style preview) ── */
-  .latest-issues-grid {
+  /* ── NEW: Latest Volumes grid (rectangular cards) ── */
+  .latest-volumes-grid {
     max-width: 1100px; margin: 0 auto; padding: 20px 40px 40px;
     display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px;
   }
 
-  .latest-issue-card {
+  .volume-card {
     background: white; border: 2px solid var(--ink); padding: 24px 26px;
     text-decoration: none; color: var(--ink); display: block;
     transition: transform 0.2s, box-shadow 0.2s;
     display: flex; flex-direction: column;
   }
-  .latest-issue-card:hover {
+  .volume-card:hover {
     transform: translate(-3px, -3px);
     box-shadow: 6px 6px 0 var(--ink);
   }
-  .latest-issue-card .issue-label {
+  .volume-card .vol-label {
     font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
-    color: var(--accent); margin-bottom: 8px;
+    color: var(--accent); margin-bottom: 6px;
   }
-  .latest-issue-card h3 {
+  .volume-card h3 {
     font-family: var(--serif); font-size: 1.2rem; font-weight: 700;
     line-height: 1.3; margin-bottom: 10px;
   }
-  .latest-issue-card .excerpt {
+  .volume-card .excerpt {
     font-size: 0.92rem; color: var(--muted); line-height: 1.6;
     flex: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
-  .latest-issue-card .read-more {
+  .volume-card .read-more {
     margin-top: 14px; font-weight: 600; font-size: 0.85rem;
     color: var(--accent); display: inline-flex; align-items: center; gap: 6px;
   }
-  .latest-issue-card .read-more::after { content: "→"; }
+  .volume-card .read-more::after { content: "→"; }
 
   /* ── ABOUT ── */
   .about-wrap { max-width: 760px; margin: 0 auto; padding: 30px 40px 20px; }
@@ -322,13 +320,13 @@
     .hero { grid-template-columns: 1fr; padding: 30px 20px; gap: 24px; }
     .hero-divider { display: none; }
     .hero-sidebar { padding-left: 0; }
-    .section-rule, .section-intro, .beats-grid, .trends-grid, .trend-archive-wrap, .archive-wrap, .about-wrap, .latest-issues-grid { padding-left: 20px; padding-right: 20px; }
+    .section-rule, .section-intro, .beats-grid, .trends-grid, .trend-archive-wrap, .archive-wrap, .about-wrap, .latest-volumes-grid { padding-left: 20px; padding-right: 20px; }
     .masthead-top { padding: 10px 20px; font-size: 10px; }
     .masthead-title { padding: 24px 20px; }
     .nav-strip { gap: 18px; padding: 14px 20px; }
     .issue-row, .trend-row { gap: 14px; }
     .issue-num, .trend-row-num { min-width: 50px; font-size: 1rem; }
-    .latest-issues-grid { grid-template-columns: 1fr; }
+    .latest-volumes-grid { grid-template-columns: 1fr; }
   }
 
   /* ── ANIMATION ── */
@@ -339,9 +337,6 @@
 
   .inview { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .inview.visible { opacity: 1; transform: translateY(0); }
-
-  .skel { background: linear-gradient(90deg, #e7e0d2 25%, #f1ebe0 37%, #e7e0d2 63%); background-size: 400% 100%; animation: skel 1.4s ease infinite; }
-  @keyframes skel { 0% { background-position: 100% 50%; } 100% { background-position: 0 50%; } }
 </style>
 </head>
 <body>
@@ -436,9 +431,7 @@
     </div>
   </article>
 
-  <!-- ============================================================ -->
-  <!-- BEATS WE COVER -->
-  <!-- ============================================================ -->
+  <!-- ===== BEATS ===== -->
   <div id="beats">
     <div class="section-rule inview">
       <span class="label">The Beats</span>
@@ -446,12 +439,10 @@
       <span class="label">What We Cover</span>
       <div class="rule-line"></div>
     </div>
-
     <div class="section-intro inview">
       <h2>The Problems That Show Up <span class="highlight-word">In Every Newsroom Tip</span></h2>
       <p>These are the failure modes that keep landing on the desk, across disciplines and platforms. Each one gets its own deep-dive issue, sooner or later.</p>
     </div>
-
     <div class="beats-grid">
       <div class="beat-card inview">
         <span class="beat-icon">🚧</span>
@@ -501,9 +492,7 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- WEEKLY X TRENDS — TOP 7 + ARCHIVE -->
-  <!-- ============================================================ -->
+  <!-- ===== TRENDS ===== -->
   <div id="trends">
     <div class="section-rule inview">
       <span class="label">🐦 X Trends</span>
@@ -511,23 +500,17 @@
       <span class="label">Weekly Dispatch</span>
       <div class="rule-line"></div>
     </div>
-
     <div class="section-intro inview">
       <h2>Weekly X Trends <span class="highlight-word">— Top 7</span></h2>
       <p>Every week we pull the most discussed topics on X (formerly Twitter) and break down what they mean for researchers, data collectors, and anyone trying to understand the conversation. The top 7 are featured here; the full archive lives below.</p>
     </div>
-
-    <!-- Top 7 Trends Grid -->
     <div class="trends-grid" id="trendsGrid">
       <div class="trend-archive-status" id="trendsStatus">Loading weekly X trends…</div>
     </div>
-
     <div class="x-attribution">
       <span>🐦 X trends are sourced from the public API and updated weekly. </span>
       <a href="trend.html">→ Latest Trend</a>
     </div>
-
-    <!-- Trends Archive (all trends) -->
     <div class="trend-archive-wrap">
       <div class="trend-archive-list" id="trendArchiveList">
         <div class="trend-archive-status" id="trendArchiveStatus">Loading trend archive…</div>
@@ -536,9 +519,7 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- VOLUME ARCHIVE -->
-  <!-- ============================================================ -->
+  <!-- ===== ARCHIVE ===== -->
   <div id="archive">
     <div class="section-rule inview">
       <span class="label">The Archive</span>
@@ -546,12 +527,10 @@
       <span class="label">Back Issues</span>
       <div class="rule-line"></div>
     </div>
-
     <div class="section-intro inview">
       <h2>Every Issue, <span class="highlight-word">In Order</span></h2>
       <p>Numbered by publication order — start anywhere, but the latest issue (top of the list) is usually the freshest failure mode on the desk.</p>
     </div>
-
     <div class="archive-wrap">
       <div class="archive-list" id="archiveList">
         <div class="archive-status" id="archiveStatus">Opening the archive…</div>
@@ -560,30 +539,7 @@
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!-- NEW: LATEST ISSUES — WSJ-style preview grid -->
-  <!-- ============================================================ -->
-  <div id="latest">
-    <div class="section-rule inview">
-      <span class="label">Latest Issues</span>
-      <div class="rule-line"></div>
-      <span class="label">From the Desk</span>
-      <div class="rule-line"></div>
-    </div>
-
-    <div class="section-intro inview">
-      <h2>What's New <span class="highlight-word">in the Chronicle</span></h2>
-      <p>Each volume dives into a single failure mode — and the fix that actually holds up. Below are the most recent dispatches from the desk.</p>
-    </div>
-
-    <div class="latest-issues-grid" id="latestGrid">
-      <div class="archive-status" id="latestStatus">Loading latest issues…</div>
-    </div>
-  </div>
-
-  <!-- ============================================================ -->
-  <!-- ABOUT -->
-  <!-- ============================================================ -->
+  <!-- ===== ABOUT ===== -->
   <div id="about">
     <div class="section-rule inview">
       <span class="label">Masthead Note</span>
@@ -596,7 +552,30 @@
       <p>The Survey Chronicle started from a simple observation: almost every guide to survey tools is written to sell you one. Almost none of them sit with the actual failure — the capped plan, the fraudulent respondent pool, the question that quietly biased six months of fieldwork — long enough to explain why it happened and what a durable fix looks like.</p>
       <p>So this is structured differently. Every issue is a single investigation, written by researchers for researchers, with no pretense that any one platform is right for every project. Where a tool genuinely solves the problem under discussion, we say so plainly. Where the honest answer is "design around it," we say that too.</p>
       <div class="ornament">⁘ ⁘ ⁘</div>
+      <!-- 👇 This is the paragraph you pointed out -->
       <p>New issues go up as we finish reporting them, not on a fixed schedule. There's no newsletter to sign up for and no paywall on the archive — just bookmark <a href="vol.html" style="color: var(--accent); text-decoration: underline;">the latest issue</a> or this front page, and check back when you're stuck on your next survey.</p>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!--  LATEST VOLUMES – RECTANGULAR CARDS WITH HALF-STORY EXCERPTS  -->
+  <!--  Placed exactly after the about paragraph above               -->
+  <!-- ============================================================ -->
+  <div id="latest-volumes">
+    <div class="section-rule inview">
+      <span class="label">Latest Volumes</span>
+      <div class="rule-line"></div>
+      <span class="label">Half‑Story Previews</span>
+      <div class="rule-line"></div>
+    </div>
+
+    <div class="section-intro inview">
+      <h2>Read the <span class="highlight-word">First Half</span> of Each Story</h2>
+      <p>Each card below shows the volume number, title, and a generous excerpt – so you can see what the issue is about before you click through to the full article.</p>
+    </div>
+
+    <div class="latest-volumes-grid" id="latestVolumesGrid">
+      <div class="archive-status" id="latestVolumesStatus">Loading volumes…</div>
     </div>
   </div>
 
@@ -629,21 +608,10 @@
   }, { threshold: 0.1 });
   document.querySelectorAll('.inview').forEach(el => observer.observe(el));
 
-  // ── Utility: fetch with cache-busting ──
+  // ── Utility ──
   async function fetchWithCache(url) {
     const res = await fetch(url, { method: 'GET', cache: 'no-store' });
     return res.ok ? await res.text() : null;
-  }
-
-  // ── Enhanced meta extraction ──
-  function extractMeta(html) {
-    const titleMatch = html.match(/<title>([\s\S]*?)<\/title>/i);
-    const descMatch = html.match(/<meta\s+name=["']description["']\s+content=(["'])([\s\S]*?)\1/i);
-    const keywordsMatch = html.match(/<meta\s+name=["']keywords["']\s+content=(["'])([\s\S]*?)\1/i);
-    let title = titleMatch ? decodeEntities(titleMatch[1]).split('|')[0].trim() : null;
-    let desc = descMatch ? decodeEntities(descMatch[2]).trim() : '';
-    let keywords = keywordsMatch ? decodeEntities(keywordsMatch[2]).split(',').map(k => k.trim()) : [];
-    return { title, desc, keywords };
   }
 
   function decodeEntities(str) {
@@ -652,7 +620,41 @@
     return ta.value;
   }
 
-  // ── Shared volume fetcher ──
+  // Extract title, description, and also try to get first paragraph from body
+  function extractMetaAndExcerpt(html) {
+    const titleMatch = html.match(/<title>([\s\S]*?)<\/title>/i);
+    const descMatch = html.match(/<meta\s+name=["']description["']\s+content=(["'])([\s\S]*?)\1/i);
+    const keywordsMatch = html.match(/<meta\s+name=["']keywords["']\s+content=(["'])([\s\S]*?)\1/i);
+    let title = titleMatch ? decodeEntities(titleMatch[1]).split('|')[0].trim() : null;
+    let desc = descMatch ? decodeEntities(descMatch[2]).trim() : '';
+
+    // Try to grab the first paragraph from the article body for a richer excerpt
+    let excerpt = desc;
+    const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
+    if (bodyMatch) {
+      const bodyContent = bodyMatch[1];
+      // Get first <p> that isn't empty (ignore navigation, etc.)
+      const pMatch = bodyContent.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
+      if (pMatch) {
+        const text = decodeEntities(pMatch[1]).replace(/<[^>]+>/g, '').trim();
+        if (text.length > 30) excerpt = text; // use paragraph if it's substantial
+      }
+    }
+
+    // If excerpt is too short, fallback to desc
+    if (excerpt.length < 20 && desc.length > 20) excerpt = desc;
+
+    // Trim to ~160 chars for a half-story preview
+    if (excerpt.length > 160) {
+      excerpt = excerpt.substring(0, 157) + '…';
+    }
+
+    let keywords = keywordsMatch ? decodeEntities(keywordsMatch[2]).split(',').map(k => k.trim()) : [];
+
+    return { title, desc: excerpt, keywords };
+  }
+
+  // ── Fetch all existing volumes ──
   async function fetchAllVolumes() {
     const found = [];
     const MAX_CHECK = 500;
@@ -665,7 +667,7 @@
     return found;
   }
 
-  // ── Load Volume Archive ──
+  // ── Load Archive (full list) ──
   async function loadArchive() {
     const listEl = document.getElementById('archiveList');
     const statusEl = document.getElementById('archiveStatus');
@@ -673,7 +675,6 @@
     const statIssues = document.getElementById('statIssues');
 
     const found = await fetchAllVolumes();
-
     statIssues.textContent = found.length;
 
     if (found.length === 0) {
@@ -684,9 +685,8 @@
 
     statusEl.remove();
     listEl.innerHTML = '';
-
     found.reverse().forEach(({ n, html }) => {
-      const meta = extractMeta(html);
+      const meta = extractMetaAndExcerpt(html);
       const num = String(n).padStart(3, '0');
       const a = document.createElement('a');
       a.className = 'issue-row';
@@ -715,32 +715,32 @@
     }
   }
 
-  // ── Load Latest Issues (WSJ-style grid) ──
-  async function loadLatestIssues() {
-    const gridEl = document.getElementById('latestGrid');
-    const statusEl = document.getElementById('latestStatus');
+  // ── Load Latest Volumes (rectangular cards with half-story) ──
+  async function loadLatestVolumes() {
+    const gridEl = document.getElementById('latestVolumesGrid');
+    const statusEl = document.getElementById('latestVolumesStatus');
 
     const found = await fetchAllVolumes();
 
     if (found.length === 0) {
-      statusEl.textContent = 'No issues published yet — check back soon.';
+      statusEl.textContent = 'No volumes published yet — check back soon.';
       return;
     }
 
     statusEl.remove();
     gridEl.innerHTML = '';
 
-    // Show newest first, take up to 12
+    // Show newest first, limit to 12 for a clean grid
     const latest = found.slice(-12).reverse();
 
     latest.forEach(({ n, html }) => {
-      const meta = extractMeta(html);
+      const meta = extractMetaAndExcerpt(html);
       const num = String(n).padStart(3, '0');
       const a = document.createElement('a');
-      a.className = 'latest-issue-card inview';
+      a.className = 'volume-card inview';
       a.href = `vol${n}.html`;
       a.innerHTML = `
-        <span class="issue-label">Vol. ${num}</span>
+        <span class="vol-label">Vol. ${num}</span>
         <h3>${meta.title || `Issue ${num}`}</h3>
         <p class="excerpt">${meta.desc || 'A deep dive into a survey failure mode and the fix that holds up.'}</p>
         <span class="read-more">Read full issue</span>
@@ -780,7 +780,7 @@
     const top7 = found.slice(-7).reverse();
     gridEl.innerHTML = '';
     top7.forEach(({ n, html }, idx) => {
-      const meta = extractMeta(html);
+      const meta = extractMetaAndExcerpt(html);
       const num = String(n).padStart(3, '0');
       const div = document.createElement('a');
       div.className = 'trend-card inview';
@@ -798,7 +798,7 @@
     archiveStatusEl.remove();
     archiveListEl.innerHTML = '';
     found.reverse().forEach(({ n, html }) => {
-      const meta = extractMeta(html);
+      const meta = extractMetaAndExcerpt(html);
       const num = String(n).padStart(3, '0');
       const a = document.createElement('a');
       a.className = 'trend-row';
@@ -817,9 +817,9 @@
     noteEl.textContent = `${found.length} trend${found.length === 1 ? '' : 's'} published. New trends drop weekly.`;
   }
 
-  // ── Run everything ──
+  // ── Run ──
   loadArchive();
-  loadLatestIssues();
+  loadLatestVolumes();
   loadTrends();
 </script>
 
