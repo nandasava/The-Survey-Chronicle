@@ -65,6 +65,8 @@
     padding: 10px 40px; border-bottom: 1px solid #333;
     font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #aaa;
   }
+  .masthead-top a { color: #eee; text-decoration: none; border-bottom: 1px dotted #666; }
+  .masthead-top a:hover { color: var(--highlight); border-bottom-color: var(--highlight); }
 
   .masthead-title { text-align: center; padding: 34px 40px 22px; }
 
@@ -258,14 +260,56 @@
   .issue-info { flex: 1; min-width: 0; }
   .issue-title { font-family: var(--serif); font-weight: 700; font-size: 1.15rem; margin-bottom: 6px; display: block; }
   .issue-desc { font-size: 0.92rem; color: var(--muted); line-height: 1.55; }
+  .issue-tags {
+    display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px;
+  }
+  .issue-tag {
+    background: var(--cream); color: var(--ink); font-size: 0.7rem;
+    padding: 2px 10px; border-radius: 20px; letter-spacing: 0.04em;
+    border: 1px solid var(--rule);
+  }
 
   .issue-arrow { font-size: 1.3rem; color: var(--accent); flex-shrink: 0; padding-top: 4px; }
 
   .archive-status { padding: 30px 0; text-align: center; color: var(--muted); font-size: 0.92rem; letter-spacing: 0.04em; }
   .archive-note { text-align: center; padding: 20px 0 6px; font-size: 0.88rem; color: var(--muted); }
 
+  /* ── NEW: LATEST ISSUES GRID (WSJ-style preview) ── */
+  .latest-issues-grid {
+    max-width: 1100px; margin: 0 auto; padding: 20px 40px 40px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px;
+  }
+
+  .latest-issue-card {
+    background: white; border: 2px solid var(--ink); padding: 24px 26px;
+    text-decoration: none; color: var(--ink); display: block;
+    transition: transform 0.2s, box-shadow 0.2s;
+    display: flex; flex-direction: column;
+  }
+  .latest-issue-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0 var(--ink);
+  }
+  .latest-issue-card .issue-label {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 8px;
+  }
+  .latest-issue-card h3 {
+    font-family: var(--serif); font-size: 1.2rem; font-weight: 700;
+    line-height: 1.3; margin-bottom: 10px;
+  }
+  .latest-issue-card .excerpt {
+    font-size: 0.92rem; color: var(--muted); line-height: 1.6;
+    flex: 1;
+  }
+  .latest-issue-card .read-more {
+    margin-top: 14px; font-weight: 600; font-size: 0.85rem;
+    color: var(--accent); display: inline-flex; align-items: center; gap: 6px;
+  }
+  .latest-issue-card .read-more::after { content: "→"; }
+
   /* ── ABOUT ── */
-  .about-wrap { max-width: 760px; margin: 0 auto; padding: 30px 40px 60px; }
+  .about-wrap { max-width: 760px; margin: 0 auto; padding: 30px 40px 20px; }
   .about-wrap p { color: #333; margin-bottom: 16px; font-size: 1rem; }
   .about-wrap .ornament { text-align: center; color: var(--rule); font-size: 1.4rem; margin: 24px 0; letter-spacing: 0.5em; }
 
@@ -278,12 +322,13 @@
     .hero { grid-template-columns: 1fr; padding: 30px 20px; gap: 24px; }
     .hero-divider { display: none; }
     .hero-sidebar { padding-left: 0; }
-    .section-rule, .section-intro, .beats-grid, .trends-grid, .trend-archive-wrap, .archive-wrap, .about-wrap { padding-left: 20px; padding-right: 20px; }
+    .section-rule, .section-intro, .beats-grid, .trends-grid, .trend-archive-wrap, .archive-wrap, .about-wrap, .latest-issues-grid { padding-left: 20px; padding-right: 20px; }
     .masthead-top { padding: 10px 20px; font-size: 10px; }
     .masthead-title { padding: 24px 20px; }
     .nav-strip { gap: 18px; padding: 14px 20px; }
     .issue-row, .trend-row { gap: 14px; }
     .issue-num, .trend-row-num { min-width: 50px; font-size: 1rem; }
+    .latest-issues-grid { grid-template-columns: 1fr; }
   }
 
   /* ── ANIMATION ── */
@@ -306,7 +351,7 @@
   <div class="masthead-top">
     <span>Est. 2026 · Independent Research Desk</span>
     <span>The Issue Index</span>
-    <span>Free to Read · No Sign-Up</span>
+    <span><a href="login.html" style="color: #fff; border-bottom: 1px dotted #fff;">Free to Read · No Sign‑Up</a></span>
   </div>
   <div class="masthead-title">
     <span class="pub-name">The Survey Chronicle</span>
@@ -382,6 +427,10 @@
         <div class="sidebar-box" style="background: var(--x-blue);">
           <h3 style="color: white;">🐦 X Weekly Trends</h3>
           <p style="color: rgba(255,255,255,0.85);">Bookmark <strong>trend.html</strong> to always land on the latest X trend analysis, published weekly.</p>
+        </div>
+        <div class="sidebar-box" style="background: var(--highlight); border: 3px solid var(--accent);">
+          <h3 style="color: var(--ink);">🔓 No sign‑up required</h3>
+          <p style="color: #222;">Jump straight into the latest issue – no account, no email, no paywall. <br><a href="login.html" style="color: var(--accent); font-weight: 700; text-decoration: underline;">Read now →</a></p>
         </div>
       </aside>
     </div>
@@ -512,6 +561,27 @@
   </div>
 
   <!-- ============================================================ -->
+  <!-- NEW: LATEST ISSUES — WSJ-style preview grid -->
+  <!-- ============================================================ -->
+  <div id="latest">
+    <div class="section-rule inview">
+      <span class="label">Latest Issues</span>
+      <div class="rule-line"></div>
+      <span class="label">From the Desk</span>
+      <div class="rule-line"></div>
+    </div>
+
+    <div class="section-intro inview">
+      <h2>What's New <span class="highlight-word">in the Chronicle</span></h2>
+      <p>Each volume dives into a single failure mode — and the fix that actually holds up. Below are the most recent dispatches from the desk.</p>
+    </div>
+
+    <div class="latest-issues-grid" id="latestGrid">
+      <div class="archive-status" id="latestStatus">Loading latest issues…</div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
   <!-- ABOUT -->
   <!-- ============================================================ -->
   <div id="about">
@@ -565,28 +635,15 @@
     return res.ok ? await res.text() : null;
   }
 
-  // ── Detect volumes dynamically ──
-  async function volExists(n) {
-    try {
-      const res = await fetch(`/vol${n}.html`, { method: 'HEAD', cache: 'no-store' });
-      return res.ok;
-    } catch (e) { return false; }
-  }
-
-  async function findLatestVolume() {
-    if (!(await volExists(1))) return 0;
-    let lo = 1, hi = 1000;
-    if (await volExists(hi)) {
-      // Beyond 1000 — keep climbing
-      let n = hi + 1;
-      while (await volExists(n)) n++;
-      return n - 1;
-    }
-    while (hi - lo > 1) {
-      const mid = Math.floor((lo + hi) / 2);
-      if (await volExists(mid)) lo = mid; else hi = mid;
-    }
-    return lo;
+  // ── Enhanced meta extraction ──
+  function extractMeta(html) {
+    const titleMatch = html.match(/<title>([\s\S]*?)<\/title>/i);
+    const descMatch = html.match(/<meta\s+name=["']description["']\s+content=(["'])([\s\S]*?)\1/i);
+    const keywordsMatch = html.match(/<meta\s+name=["']keywords["']\s+content=(["'])([\s\S]*?)\1/i);
+    let title = titleMatch ? decodeEntities(titleMatch[1]).split('|')[0].trim() : null;
+    let desc = descMatch ? decodeEntities(descMatch[2]).trim() : '';
+    let keywords = keywordsMatch ? decodeEntities(keywordsMatch[2]).split(',').map(k => k.trim()) : [];
+    return { title, desc, keywords };
   }
 
   function decodeEntities(str) {
@@ -595,12 +652,17 @@
     return ta.value;
   }
 
-  function extractMeta(html) {
-    const titleMatch = html.match(/<title>([\s\S]*?)<\/title>/i);
-    const descMatch = html.match(/<meta\s+name=["']description["']\s+content=(["'])([\s\S]*?)\1/i);
-    let title = titleMatch ? decodeEntities(titleMatch[1]).split('|')[0].trim() : null;
-    let desc = descMatch ? decodeEntities(descMatch[2]).trim() : '';
-    return { title, desc };
+  // ── Shared volume fetcher ──
+  async function fetchAllVolumes() {
+    const found = [];
+    const MAX_CHECK = 500;
+    for (let n = 1; n <= MAX_CHECK; n++) {
+      const html = await fetchWithCache(`/vol${n}.html`);
+      if (html) {
+        found.push({ n, html });
+      }
+    }
+    return found;
   }
 
   // ── Load Volume Archive ──
@@ -610,15 +672,7 @@
     const noteEl = document.getElementById('archiveNote');
     const statIssues = document.getElementById('statIssues');
 
-    const found = [];
-    let n = 1;
-    let maxCheck = 2000;
-    while (n <= maxCheck) {
-      const html = await fetchWithCache(`/vol${n}.html`);
-      if (!html) break;
-      found.push({ n, html });
-      n++;
-    }
+    const found = await fetchAllVolumes();
 
     statIssues.textContent = found.length;
 
@@ -637,11 +691,16 @@
       const a = document.createElement('a');
       a.className = 'issue-row';
       a.href = `vol${n}.html`;
+      let tagsHtml = '';
+      if (meta.keywords && meta.keywords.length) {
+        tagsHtml = `<div class="issue-tags">${meta.keywords.slice(0, 5).map(t => `<span class="issue-tag">${t}</span>`).join('')}</div>`;
+      }
       a.innerHTML = `
         <span class="issue-num">№ ${num}</span>
         <span class="issue-info">
           <span class="issue-title">${meta.title || `Issue ${num}`}</span>
           <span class="issue-desc">${meta.desc || ''}</span>
+          ${tagsHtml}
         </span>
         <span class="issue-arrow">→</span>
       `;
@@ -652,34 +711,46 @@
     if (found.length < totalPlanned) {
       noteEl.textContent = `${totalPlanned - found.length} more issue${totalPlanned - found.length === 1 ? '' : 's'} planned — this list updates itself as each one goes live.`;
     } else {
-      noteEl.textContent = 'The full run — all planned issues are live.';
+      noteEl.textContent = `All ${found.length} published issues shown.`;
     }
   }
 
-  // ── Detect trends dynamically ──
-  async function trendExists(n) {
-    try {
-      const res = await fetch(`/trend${n}.html`, { method: 'HEAD', cache: 'no-store' });
-      return res.ok;
-    } catch (e) { return false; }
+  // ── Load Latest Issues (WSJ-style grid) ──
+  async function loadLatestIssues() {
+    const gridEl = document.getElementById('latestGrid');
+    const statusEl = document.getElementById('latestStatus');
+
+    const found = await fetchAllVolumes();
+
+    if (found.length === 0) {
+      statusEl.textContent = 'No issues published yet — check back soon.';
+      return;
+    }
+
+    statusEl.remove();
+    gridEl.innerHTML = '';
+
+    // Show newest first, take up to 12
+    const latest = found.slice(-12).reverse();
+
+    latest.forEach(({ n, html }) => {
+      const meta = extractMeta(html);
+      const num = String(n).padStart(3, '0');
+      const a = document.createElement('a');
+      a.className = 'latest-issue-card inview';
+      a.href = `vol${n}.html`;
+      a.innerHTML = `
+        <span class="issue-label">Vol. ${num}</span>
+        <h3>${meta.title || `Issue ${num}`}</h3>
+        <p class="excerpt">${meta.desc || 'A deep dive into a survey failure mode and the fix that holds up.'}</p>
+        <span class="read-more">Read full issue</span>
+      `;
+      gridEl.appendChild(a);
+      observer.observe(a);
+    });
   }
 
-  async function findLatestTrend() {
-    if (!(await trendExists(1))) return 0;
-    let lo = 1, hi = 1000;
-    if (await trendExists(hi)) {
-      let n = hi + 1;
-      while (await trendExists(n)) n++;
-      return n - 1;
-    }
-    while (hi - lo > 1) {
-      const mid = Math.floor((lo + hi) / 2);
-      if (await trendExists(mid)) lo = mid; else hi = mid;
-    }
-    return lo;
-  }
-
-  // ── Load Trends (Top 7 + Archive) ──
+  // ── Load Trends ──
   async function loadTrends() {
     const gridEl = document.getElementById('trendsGrid');
     const archiveListEl = document.getElementById('trendArchiveList');
@@ -689,13 +760,12 @@
     const statTrends = document.getElementById('statTrends');
 
     const found = [];
-    let n = 1;
-    let maxCheck = 1000;
-    while (n <= maxCheck) {
+    const MAX_CHECK = 500;
+    for (let n = 1; n <= MAX_CHECK; n++) {
       const html = await fetchWithCache(`/trend${n}.html`);
-      if (!html) break;
-      found.push({ n, html });
-      n++;
+      if (html) {
+        found.push({ n, html });
+      }
     }
 
     statTrends.textContent = found.length;
@@ -707,7 +777,6 @@
       return;
     }
 
-    // --- Top 7: show the 7 most recent ---
     const top7 = found.slice(-7).reverse();
     gridEl.innerHTML = '';
     top7.forEach(({ n, html }, idx) => {
@@ -726,7 +795,6 @@
       observer.observe(div);
     });
 
-    // --- Archive: all trends (newest first) ---
     archiveStatusEl.remove();
     archiveListEl.innerHTML = '';
     found.reverse().forEach(({ n, html }) => {
@@ -751,6 +819,7 @@
 
   // ── Run everything ──
   loadArchive();
+  loadLatestIssues();
   loadTrends();
 </script>
 
