@@ -306,6 +306,19 @@
   }
   .volume-card .read-more::after { content: "→"; }
 
+  /* ── Load More sentinel ── */
+  .load-more-sentinel {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 30px 0;
+    color: var(--muted);
+    font-size: 0.9rem;
+    cursor: default;
+  }
+  .load-more-sentinel.loading {
+    color: var(--accent);
+  }
+
   /* ── ABOUT ── */
   .about-wrap { max-width: 760px; margin: 0 auto; padding: 30px 40px 20px; }
   .about-wrap p { color: #333; margin-bottom: 16px; font-size: 1rem; }
@@ -337,6 +350,17 @@
 
   .inview { opacity: 0; transform: translateY(18px); transition: opacity 0.6s ease, transform 0.6s ease; }
   .inview.visible { opacity: 1; transform: translateY(0); }
+
+  .spinner {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 3px solid var(--rule);
+    border-top: 3px solid var(--accent);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
 </style>
 </head>
 <body>
@@ -556,7 +580,7 @@
     </div>
   </div>
 
-  <!-- ===== LATEST VOLUMES – NOW SHOWING ALL VOLUMES ===== -->
+  <!-- ===== LATEST VOLUMES – INFINITE SCROLL ===== -->
   <div id="latest-volumes">
     <div class="section-rule inview">
       <span class="label">All Volumes</span>
@@ -567,11 +591,11 @@
 
     <div class="section-intro inview">
       <h2>Read the <span class="highlight-word">First Half</span> of Every Story</h2>
-      <p>Every single volume is listed below with a generous excerpt – scroll through to find the issue that speaks to your current survey problem.</p>
+      <p>Every single volume is listed below with a generous excerpt – scroll to load more.</p>
     </div>
 
     <div class="latest-volumes-grid" id="latestVolumesGrid">
-      <div class="archive-status" id="latestVolumesStatus">Loading all volumes…</div>
+      <div class="archive-status" id="latestVolumesStatus">Loading volumes…</div>
     </div>
   </div>
 
@@ -590,7 +614,7 @@
 </footer>
 
 <!-- ============================================================ -->
-<!-- SCRIPTS – FAST PARALLEL FETCHING + ALL VOLUMES DISPLAYED     -->
+<!-- SCRIPTS – INFINITE SCROLL WITH BATCHES OF 30                  -->
 <!-- ============================================================ -->
 <script>
   // ── In-view fade animation ──
@@ -637,7 +661,6 @@
 
     if (excerpt.length < 20 && desc.length > 20) excerpt = desc;
 
-    // Make it a solid "half story" preview – ~280 characters
     if (excerpt.length > 280) {
       excerpt = excerpt.substring(0, 277) + '…';
     }
@@ -647,11 +670,11 @@
     return { title, desc: excerpt, keywords };
   }
 
-  // ── FAST PARALLEL FETCH: checks 15 volumes at a time ──
-  async function fetchAllVolumes() {
-    const found = [];
+  // ── Discover which volume numbers exist (in parallel) ──
+  async function discoverExistingVolumes() {
     const MAX_CHECK = 500;
-    const CONCURRENCY = 15; // how many to fetch at once
+    const CONCURRENCY = 15;
+    const found = [];
 
     for (let start = 1; start <= MAX_CHECK; start += CONCURRENCY) {
       const end = Math.min(start + CONCURRENCY - 1, MAX_CHECK);
@@ -659,132 +682,148 @@
       for (let n = start; n <= end; n++) {
         batch.push(
           fetchWithCache(`/vol${n}.html`).then(html => {
-            if (html) return { n, html };
-            return null;
-          })
-        );
-      }
-      // Wait for this batch of 15 to finish
-      const results = await Promise.all(batch);
-      for (const res of results) {
-        if (res) found.push(res);
-      }
-      // Yield to let the browser breathe between batches
-      await new Promise(r => setTimeout(r, 0));
-    }
-    return found;
-  }
-
-  // ── FAST PARALLEL FETCH for trends ──
-  async function fetchAllTrends() {
-    const found = [];
-    const MAX_CHECK = 500;
-    const CONCURRENCY = 15;
-
-    for (let start = 1; start <= MAX_CHECK; start += CONCURRENCY) {
-      const end = Math.min(start + CONCURRENCY - 1, MAX_CHECK);
-      const batch = [];
-      for (let n = start; n <= end; n++) {
-        batch.push(
-          fetchWithCache(`/trend${n}.html`).then(html => {
-            if (html) return { n, html };
+            if (html) return n;
             return null;
           })
         );
       }
       const results = await Promise.all(batch);
-      for (const res of results) {
-        if (res) found.push(res);
+      for (const num of results) {
+        if (num) found.push(num);
       }
+      // small delay to let UI breathe
       await new Promise(r => setTimeout(r, 0));
     }
-    return found;
+    return found.sort((a, b) => b - a); // descending (newest first)
   }
 
-  // ── Load Archive (full list) ──
-  async function loadArchive() {
-    const listEl = document.getElementById('archiveList');
-    const statusEl = document.getElementById('archiveStatus');
-    const noteEl = document.getElementById('archiveNote');
-    const statIssues = document.getElementById('statIssues');
-
-    const found = await fetchAllVolumes();
-    statIssues.textContent = found.length;
-
-    if (found.length === 0) {
-      statusEl.textContent = 'No issues published yet — check back soon.';
-      noteEl.textContent = '';
-      return;
+  // ── Fetch HTML for a batch of volume numbers ──
+  async function fetchVolumeHTMLs(numbers) {
+    const results = [];
+    const CONCURRENCY = 10;
+    for (let i = 0; i < numbers.length; i += CONCURRENCY) {
+      const batch = numbers.slice(i, i + CONCURRENCY);
+      const promises = batch.map(n => fetchWithCache(`/vol${n}.html`).then(html => ({ n, html })));
+      const batchResults = await Promise.all(promises);
+      results.push(...batchResults.filter(r => r.html));
+      await new Promise(r => setTimeout(r, 0));
     }
-
-    statusEl.remove();
-    listEl.innerHTML = '';
-    found.reverse().forEach(({ n, html }) => {
-      const meta = extractMetaAndExcerpt(html);
-      const num = String(n).padStart(3, '0');
-      const a = document.createElement('a');
-      a.className = 'issue-row';
-      a.href = `vol${n}.html`;
-      let tagsHtml = '';
-      if (meta.keywords && meta.keywords.length) {
-        tagsHtml = `<div class="issue-tags">${meta.keywords.slice(0, 5).map(t => `<span class="issue-tag">${t}</span>`).join('')}</div>`;
-      }
-      a.innerHTML = `
-        <span class="issue-num">№ ${num}</span>
-        <span class="issue-info">
-          <span class="issue-title">${meta.title || `Issue ${num}`}</span>
-          <span class="issue-desc">${meta.desc || ''}</span>
-          ${tagsHtml}
-        </span>
-        <span class="issue-arrow">→</span>
-      `;
-      listEl.appendChild(a);
-    });
-
-    const totalPlanned = 100;
-    if (found.length < totalPlanned) {
-      noteEl.textContent = `${totalPlanned - found.length} more issue${totalPlanned - found.length === 1 ? '' : 's'} planned — this list updates itself as each one goes live.`;
-    } else {
-      noteEl.textContent = `All ${found.length} published issues shown.`;
-    }
+    return results;
   }
 
-  // ── Load Latest Volumes (ALL volumes, newest first) ──
+  // ── Create a volume card element ──
+  function createVolumeCard({ n, html }) {
+    const meta = extractMetaAndExcerpt(html);
+    const num = String(n).padStart(3, '0');
+    const a = document.createElement('a');
+    a.className = 'volume-card inview';
+    a.href = `vol${n}.html`;
+    a.innerHTML = `
+      <span class="vol-label">Vol. ${num}</span>
+      <h3>${meta.title || `Issue ${num}`}</h3>
+      <p class="excerpt">${meta.desc || 'A deep dive into a survey failure mode and the fix that holds up.'}</p>
+      <span class="read-more">Read full issue</span>
+    `;
+    observer.observe(a);
+    return a;
+  }
+
+  // ── Load Latest Volumes with infinite scroll ──
   async function loadLatestVolumes() {
-    const gridEl = document.getElementById('latestVolumesGrid');
-    const statusEl = document.getElementById('latestVolumesStatus');
+    const grid = document.getElementById('latestVolumesGrid');
+    const status = document.getElementById('latestVolumesStatus');
 
-    const found = await fetchAllVolumes();
+    // Discover all existing volumes
+    const allVolumes = await discoverExistingVolumes();
 
-    if (found.length === 0) {
-      statusEl.textContent = 'No volumes published yet — check back soon.';
+    if (allVolumes.length === 0) {
+      status.textContent = 'No volumes published yet — check back soon.';
       return;
     }
 
-    statusEl.remove();
-    gridEl.innerHTML = '';
+    // Remove status
+    status.remove();
 
-    // Show ALL volumes, newest first
-    const allVols = found.reverse();
+    // How many to load per batch
+    const BATCH_SIZE = 30;
+    let currentIndex = 0;
+    let loading = false;
+    let allLoaded = false;
 
-    allVols.forEach(({ n, html }) => {
-      const meta = extractMetaAndExcerpt(html);
-      const num = String(n).padStart(3, '0');
-      const a = document.createElement('a');
-      a.className = 'volume-card inview';
-      a.href = `vol${n}.html`;
-      a.innerHTML = `
-        <span class="vol-label">Vol. ${num}</span>
-        <h3>${meta.title || `Issue ${num}`}</h3>
-        <p class="excerpt">${meta.desc || 'A deep dive into a survey failure mode and the fix that holds up.'}</p>
-        <span class="read-more">Read full issue</span>
-      `;
-      gridEl.appendChild(a);
-      observer.observe(a);
-    });
+    // Function to load next batch
+    async function loadNextBatch() {
+      if (loading || allLoaded) return;
+      loading = true;
+
+      const nextBatch = allVolumes.slice(currentIndex, currentIndex + BATCH_SIZE);
+      if (nextBatch.length === 0) {
+        allLoaded = true;
+        // Remove sentinel if exists
+        const sentinel = grid.querySelector('.load-more-sentinel');
+        if (sentinel) sentinel.remove();
+        loading = false;
+        return;
+      }
+
+      // Show "loading" indicator in sentinel
+      let sentinel = grid.querySelector('.load-more-sentinel');
+      if (!sentinel) {
+        sentinel = document.createElement('div');
+        sentinel.className = 'load-more-sentinel';
+        sentinel.textContent = 'Loading more volumes…';
+        grid.appendChild(sentinel);
+      }
+      sentinel.classList.add('loading');
+      sentinel.innerHTML = '<span class="spinner"></span> Loading more volumes…';
+
+      // Fetch the batch
+      const batchData = await fetchVolumeHTMLs(nextBatch);
+
+      // Remove sentinel
+      sentinel.remove();
+
+      // Append cards
+      for (const data of batchData) {
+        const card = createVolumeCard(data);
+        grid.appendChild(card);
+      }
+
+      currentIndex += nextBatch.length;
+
+      // Check if we've loaded all
+      if (currentIndex >= allVolumes.length) {
+        allLoaded = true;
+        const done = document.createElement('div');
+        done.className = 'load-more-sentinel';
+        done.textContent = '✓ All volumes loaded';
+        grid.appendChild(done);
+      } else {
+        // Add a new sentinel for the next batch
+        const newSentinel = document.createElement('div');
+        newSentinel.className = 'load-more-sentinel';
+        newSentinel.textContent = 'Scroll for more…';
+        grid.appendChild(newSentinel);
+        // Observe the sentinel
+        const sentinelObserver = new IntersectionObserver((entries) => {
+          if (entries[0].isIntersecting) {
+            loadNextBatch();
+            sentinelObserver.disconnect();
+          }
+        }, { rootMargin: '0px 0px 200px 0px' });
+        sentinelObserver.observe(newSentinel);
+      }
+
+      loading = false;
+    }
+
+    // Load the first batch immediately
+    await loadNextBatch();
+
+    // Also, if the user has scrolled to the bottom before the first batch is done,
+    // the sentinel will trigger another load, but we guard with loading flag.
   }
 
-  // ── Load Trends (also parallel) ──
+  // ── Load Trends ── (keep as simple batch, but load in parallel) ──
   async function loadTrends() {
     const gridEl = document.getElementById('trendsGrid');
     const archiveListEl = document.getElementById('trendArchiveList');
@@ -793,7 +832,27 @@
     const noteEl = document.getElementById('trendArchiveNote');
     const statTrends = document.getElementById('statTrends');
 
-    const found = await fetchAllTrends();
+    // Discover trend numbers
+    const MAX_CHECK = 500;
+    const CONCURRENCY = 15;
+    const found = [];
+    for (let start = 1; start <= MAX_CHECK; start += CONCURRENCY) {
+      const end = Math.min(start + CONCURRENCY - 1, MAX_CHECK);
+      const batch = [];
+      for (let n = start; n <= end; n++) {
+        batch.push(
+          fetchWithCache(`/trend${n}.html`).then(html => {
+            if (html) return n;
+            return null;
+          })
+        );
+      }
+      const results = await Promise.all(batch);
+      for (const num of results) {
+        if (num) found.push(num);
+      }
+      await new Promise(r => setTimeout(r, 0));
+    }
 
     statTrends.textContent = found.length;
 
@@ -804,9 +863,15 @@
       return;
     }
 
-    const top7 = found.slice(-7).reverse();
+    // Now fetch top 7 and archive in parallel
+    const sorted = found.sort((a, b) => b - a); // newest first
+    const top7Numbers = sorted.slice(0, 7);
+    const archiveNumbers = sorted.slice(7);
+
+    // Fetch top 7
+    const top7Data = await fetchVolumeHTMLs(top7Numbers); // reuse
     gridEl.innerHTML = '';
-    top7.forEach(({ n, html }, idx) => {
+    top7Data.forEach(({ n, html }, idx) => {
       const meta = extractMetaAndExcerpt(html);
       const num = String(n).padStart(3, '0');
       const div = document.createElement('a');
@@ -822,9 +887,11 @@
       observer.observe(div);
     });
 
+    // Fetch archive (in batches)
     archiveStatusEl.remove();
     archiveListEl.innerHTML = '';
-    found.reverse().forEach(({ n, html }) => {
+    const archiveData = await fetchVolumeHTMLs(archiveNumbers);
+    archiveData.forEach(({ n, html }) => {
       const meta = extractMetaAndExcerpt(html);
       const num = String(n).padStart(3, '0');
       const a = document.createElement('a');
@@ -844,10 +911,66 @@
     noteEl.textContent = `${found.length} trend${found.length === 1 ? '' : 's'} published. New trends drop weekly.`;
   }
 
+  // ── Load Archive (full list) – we can also lazy load, but we'll just fetch all in parallel ──
+  async function loadArchive() {
+    const listEl = document.getElementById('archiveList');
+    const statusEl = document.getElementById('archiveStatus');
+    const noteEl = document.getElementById('archiveNote');
+    const statIssues = document.getElementById('statIssues');
+
+    const allVols = await discoverExistingVolumes();
+    statIssues.textContent = allVols.length;
+
+    if (allVols.length === 0) {
+      statusEl.textContent = 'No issues published yet — check back soon.';
+      noteEl.textContent = '';
+      return;
+    }
+
+    statusEl.remove();
+    listEl.innerHTML = '';
+    // Fetch all in parallel with batches
+    const allData = await fetchVolumeHTMLs(allVols);
+    // Sort by number descending (newest first)
+    allData.sort((a, b) => b.n - a.n);
+    for (const data of allData) {
+      const meta = extractMetaAndExcerpt(data.html);
+      const num = String(data.n).padStart(3, '0');
+      const a = document.createElement('a');
+      a.className = 'issue-row';
+      a.href = `vol${data.n}.html`;
+      let tagsHtml = '';
+      if (meta.keywords && meta.keywords.length) {
+        tagsHtml = `<div class="issue-tags">${meta.keywords.slice(0, 5).map(t => `<span class="issue-tag">${t}</span>`).join('')}</div>`;
+      }
+      a.innerHTML = `
+        <span class="issue-num">№ ${num}</span>
+        <span class="issue-info">
+          <span class="issue-title">${meta.title || `Issue ${num}`}</span>
+          <span class="issue-desc">${meta.desc || ''}</span>
+          ${tagsHtml}
+        </span>
+        <span class="issue-arrow">→</span>
+      `;
+      listEl.appendChild(a);
+    }
+
+    const totalPlanned = 100;
+    if (allVols.length < totalPlanned) {
+      noteEl.textContent = `${totalPlanned - allVols.length} more issue${totalPlanned - allVols.length === 1 ? '' : 's'} planned — this list updates itself as each one goes live.`;
+    } else {
+      noteEl.textContent = `All ${allVols.length} published issues shown.`;
+    }
+  }
+
   // ── Run everything ──
-  loadArchive();
-  loadLatestVolumes();
-  loadTrends();
+  (async function init() {
+    // Start loading archive and trends in background
+    loadArchive();
+    loadTrends();
+    // Load latest volumes with infinite scroll (this is the main one)
+    await loadLatestVolumes();
+  })();
 </script>
 
 </body>
