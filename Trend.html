@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opening the Latest Trend… | The Survey Chronicle</title>
+<meta name="description" content="Redirects to the latest published X trend dispatch on The Survey Chronicle.">
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://the-survey-chronicle.pages.dev/trend.html">
+<style>
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+    background:#faf8f4;color:#1b1b1b;display:flex;min-height:100vh;align-items:center;justify-content:center;margin:0}
+  .box{max-width:420px;text-align:center;padding:24px}
+  h1{font-family:Georgia,serif;font-size:22px;margin-bottom:8px}
+  p{color:#6b6558;font-size:14px}
+  a{color:#8a3324}
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>Finding the latest trend dispatch…</h1>
+  <p>Checking the archive.</p>
+  <p><a href="index.html">Go to the front page</a> instead if this takes a while.</p>
+  <noscript>
+    <p>JavaScript is off, so we can't auto-detect the latest trend.
+    Start with <a href="trend1.html">Trend 1</a> or the <a href="index.html">front page</a>.</p>
+  </noscript>
+</div>
+
+<script>
+(function(){
+  // Same gap-tolerant scan as index.html/vol.html: keeps going past a
+  // missing trend{n}.html so a published trend50 is still found even if
+  // trend49 is absent.
+  var MAX_N = 200, BATCH = 25, MAX_CONSECUTIVE_MISSES = 25;
+  var found = [];
+  var n = 1, consecutiveMiss = 0;
+
+  function checkOne(num){
+    return fetch('trend' + num + '.html', {method:'HEAD', cache:'no-store'})
+      .then(function(res){ return {num:num, ok:res.ok}; })
+      .catch(function(){ return {num:num, ok:false}; });
+  }
+
+  function nextBatch(){
+    if (n > MAX_N || consecutiveMiss >= MAX_CONSECUTIVE_MISSES) return finish();
+    var batchNums = [];
+    for (var i=0; i<BATCH && n<=MAX_N; i++, n++) batchNums.push(n);
+    Promise.all(batchNums.map(checkOne)).then(function(results){
+      var batchHadHit = false;
+      results.forEach(function(r){
+        if (r.ok){ found.push(r.num); consecutiveMiss = 0; batchHadHit = true; }
+      });
+      if (!batchHadHit) consecutiveMiss += BATCH;
+      nextBatch();
+    });
+  }
+
+  function finish(){
+    if (!found.length){ window.location.replace('index.html'); return; }
+    var latest = Math.max.apply(null, found);
+    window.location.replace('trend' + latest + '.html');
+  }
+
+  nextBatch();
+})();
+</script>
+</body>
+</html>
