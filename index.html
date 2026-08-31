@@ -296,7 +296,7 @@
     font-size: 0.92rem; color: var(--muted); line-height: 1.6;
     flex: 1;
     display: -webkit-box;
-    -webkit-line-clamp: 4;
+    -webkit-line-clamp: 6;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
@@ -556,22 +556,22 @@
     </div>
   </div>
 
-  <!-- ===== LATEST VOLUMES ===== -->
+  <!-- ===== LATEST VOLUMES – NOW SHOWING ALL VOLUMES ===== -->
   <div id="latest-volumes">
     <div class="section-rule inview">
-      <span class="label">Latest Volumes</span>
+      <span class="label">All Volumes</span>
       <div class="rule-line"></div>
       <span class="label">Half‑Story Previews</span>
       <div class="rule-line"></div>
     </div>
 
     <div class="section-intro inview">
-      <h2>Read the <span class="highlight-word">First Half</span> of Each Story</h2>
-      <p>Each card below shows the volume number, title, and a generous excerpt – so you can see what the issue is about before you click through to the full article.</p>
+      <h2>Read the <span class="highlight-word">First Half</span> of Every Story</h2>
+      <p>Every single volume is listed below with a generous excerpt – scroll through to find the issue that speaks to your current survey problem.</p>
     </div>
 
     <div class="latest-volumes-grid" id="latestVolumesGrid">
-      <div class="archive-status" id="latestVolumesStatus">Loading volumes…</div>
+      <div class="archive-status" id="latestVolumesStatus">Loading all volumes…</div>
     </div>
   </div>
 
@@ -590,7 +590,7 @@
 </footer>
 
 <!-- ============================================================ -->
-<!-- SCRIPTS – THIS IS THE CRITICAL PART THAT WAS MISSING -->
+<!-- SCRIPTS – FAST PARALLEL FETCHING + ALL VOLUMES DISPLAYED     -->
 <!-- ============================================================ -->
 <script>
   // ── In-view fade animation ──
@@ -616,7 +616,7 @@
     return ta.value;
   }
 
-  // Extract title, description, and excerpt from a volume HTML file
+  // Extract title, description, and a LARGE excerpt (~280 chars = "half story")
   function extractMetaAndExcerpt(html) {
     const titleMatch = html.match(/<title>([\s\S]*?)<\/title>/i);
     const descMatch = html.match(/<meta\s+name=["']description["']\s+content=(["'])([\s\S]*?)\1/i);
@@ -624,12 +624,10 @@
     let title = titleMatch ? decodeEntities(titleMatch[1]).split('|')[0].trim() : null;
     let desc = descMatch ? decodeEntities(descMatch[2]).trim() : '';
 
-    // Try to grab the first real paragraph from the body for a richer excerpt
     let excerpt = desc;
     const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
     if (bodyMatch) {
       const bodyContent = bodyMatch[1];
-      // Get first <p> that isn't empty (skip navigation, etc.)
       const pMatch = bodyContent.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
       if (pMatch) {
         const text = decodeEntities(pMatch[1]).replace(/<[^>]+>/g, '').trim();
@@ -639,9 +637,9 @@
 
     if (excerpt.length < 20 && desc.length > 20) excerpt = desc;
 
-    // Trim to ~160 chars for a half-story preview
-    if (excerpt.length > 160) {
-      excerpt = excerpt.substring(0, 157) + '…';
+    // Make it a solid "half story" preview – ~280 characters
+    if (excerpt.length > 280) {
+      excerpt = excerpt.substring(0, 277) + '…';
     }
 
     let keywords = keywordsMatch ? decodeEntities(keywordsMatch[2]).split(',').map(k => k.trim()) : [];
@@ -649,15 +647,56 @@
     return { title, desc: excerpt, keywords };
   }
 
-  // ── Fetch all existing volumes (skips missing ones) ──
+  // ── FAST PARALLEL FETCH: checks 15 volumes at a time ──
   async function fetchAllVolumes() {
     const found = [];
     const MAX_CHECK = 500;
-    for (let n = 1; n <= MAX_CHECK; n++) {
-      const html = await fetchWithCache(`/vol${n}.html`);
-      if (html) {
-        found.push({ n, html });
+    const CONCURRENCY = 15; // how many to fetch at once
+
+    for (let start = 1; start <= MAX_CHECK; start += CONCURRENCY) {
+      const end = Math.min(start + CONCURRENCY - 1, MAX_CHECK);
+      const batch = [];
+      for (let n = start; n <= end; n++) {
+        batch.push(
+          fetchWithCache(`/vol${n}.html`).then(html => {
+            if (html) return { n, html };
+            return null;
+          })
+        );
       }
+      // Wait for this batch of 15 to finish
+      const results = await Promise.all(batch);
+      for (const res of results) {
+        if (res) found.push(res);
+      }
+      // Yield to let the browser breathe between batches
+      await new Promise(r => setTimeout(r, 0));
+    }
+    return found;
+  }
+
+  // ── FAST PARALLEL FETCH for trends ──
+  async function fetchAllTrends() {
+    const found = [];
+    const MAX_CHECK = 500;
+    const CONCURRENCY = 15;
+
+    for (let start = 1; start <= MAX_CHECK; start += CONCURRENCY) {
+      const end = Math.min(start + CONCURRENCY - 1, MAX_CHECK);
+      const batch = [];
+      for (let n = start; n <= end; n++) {
+        batch.push(
+          fetchWithCache(`/trend${n}.html`).then(html => {
+            if (html) return { n, html };
+            return null;
+          })
+        );
+      }
+      const results = await Promise.all(batch);
+      for (const res of results) {
+        if (res) found.push(res);
+      }
+      await new Promise(r => setTimeout(r, 0));
     }
     return found;
   }
@@ -710,7 +749,7 @@
     }
   }
 
-  // ── Load Latest Volumes (cards with half-story previews) ──
+  // ── Load Latest Volumes (ALL volumes, newest first) ──
   async function loadLatestVolumes() {
     const gridEl = document.getElementById('latestVolumesGrid');
     const statusEl = document.getElementById('latestVolumesStatus');
@@ -725,10 +764,10 @@
     statusEl.remove();
     gridEl.innerHTML = '';
 
-    // Show newest first, limit to 12
-    const latest = found.slice(-12).reverse();
+    // Show ALL volumes, newest first
+    const allVols = found.reverse();
 
-    latest.forEach(({ n, html }) => {
+    allVols.forEach(({ n, html }) => {
       const meta = extractMetaAndExcerpt(html);
       const num = String(n).padStart(3, '0');
       const a = document.createElement('a');
@@ -745,7 +784,7 @@
     });
   }
 
-  // ── Load Trends ──
+  // ── Load Trends (also parallel) ──
   async function loadTrends() {
     const gridEl = document.getElementById('trendsGrid');
     const archiveListEl = document.getElementById('trendArchiveList');
@@ -754,14 +793,7 @@
     const noteEl = document.getElementById('trendArchiveNote');
     const statTrends = document.getElementById('statTrends');
 
-    const found = [];
-    const MAX_CHECK = 500;
-    for (let n = 1; n <= MAX_CHECK; n++) {
-      const html = await fetchWithCache(`/trend${n}.html`);
-      if (html) {
-        found.push({ n, html });
-      }
-    }
+    const found = await fetchAllTrends();
 
     statTrends.textContent = found.length;
 
