@@ -268,7 +268,7 @@
   .archive-status { padding: 30px 0; text-align: center; color: var(--muted); font-size: 0.92rem; letter-spacing: 0.04em; }
   .archive-note { text-align: center; padding: 20px 0 6px; font-size: 0.88rem; color: var(--muted); }
 
-  /* ── NEW: Latest Volumes grid (rectangular cards) ── */
+  /* ── Latest Volumes grid ── */
   .latest-volumes-grid {
     max-width: 1100px; margin: 0 auto; padding: 20px 40px 40px;
     display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 28px;
@@ -552,15 +552,11 @@
       <p>The Survey Chronicle started from a simple observation: almost every guide to survey tools is written to sell you one. Almost none of them sit with the actual failure — the capped plan, the fraudulent respondent pool, the question that quietly biased six months of fieldwork — long enough to explain why it happened and what a durable fix looks like.</p>
       <p>So this is structured differently. Every issue is a single investigation, written by researchers for researchers, with no pretense that any one platform is right for every project. Where a tool genuinely solves the problem under discussion, we say so plainly. Where the honest answer is "design around it," we say that too.</p>
       <div class="ornament">⁘ ⁘ ⁘</div>
-      <!-- 👇 This is the paragraph you pointed out -->
       <p>New issues go up as we finish reporting them, not on a fixed schedule. There's no newsletter to sign up for and no paywall on the archive — just bookmark <a href="vol.html" style="color: var(--accent); text-decoration: underline;">the latest issue</a> or this front page, and check back when you're stuck on your next survey.</p>
     </div>
   </div>
 
-  <!-- ============================================================ -->
-  <!--  LATEST VOLUMES – RECTANGULAR CARDS WITH HALF-STORY EXCERPTS  -->
-  <!--  Placed exactly after the about paragraph above               -->
-  <!-- ============================================================ -->
+  <!-- ===== LATEST VOLUMES ===== -->
   <div id="latest-volumes">
     <div class="section-rule inview">
       <span class="label">Latest Volumes</span>
@@ -594,7 +590,7 @@
 </footer>
 
 <!-- ============================================================ -->
-<!-- SCRIPTS -->
+<!-- SCRIPTS – THIS IS THE CRITICAL PART THAT WAS MISSING -->
 <!-- ============================================================ -->
 <script>
   // ── In-view fade animation ──
@@ -620,7 +616,7 @@
     return ta.value;
   }
 
-  // Extract title, description, and also try to get first paragraph from body
+  // Extract title, description, and excerpt from a volume HTML file
   function extractMetaAndExcerpt(html) {
     const titleMatch = html.match(/<title>([\s\S]*?)<\/title>/i);
     const descMatch = html.match(/<meta\s+name=["']description["']\s+content=(["'])([\s\S]*?)\1/i);
@@ -628,20 +624,19 @@
     let title = titleMatch ? decodeEntities(titleMatch[1]).split('|')[0].trim() : null;
     let desc = descMatch ? decodeEntities(descMatch[2]).trim() : '';
 
-    // Try to grab the first paragraph from the article body for a richer excerpt
+    // Try to grab the first real paragraph from the body for a richer excerpt
     let excerpt = desc;
     const bodyMatch = html.match(/<body[^>]*>([\s\S]*?)<\/body>/i);
     if (bodyMatch) {
       const bodyContent = bodyMatch[1];
-      // Get first <p> that isn't empty (ignore navigation, etc.)
+      // Get first <p> that isn't empty (skip navigation, etc.)
       const pMatch = bodyContent.match(/<p[^>]*>([\s\S]*?)<\/p>/i);
       if (pMatch) {
         const text = decodeEntities(pMatch[1]).replace(/<[^>]+>/g, '').trim();
-        if (text.length > 30) excerpt = text; // use paragraph if it's substantial
+        if (text.length > 30) excerpt = text;
       }
     }
 
-    // If excerpt is too short, fallback to desc
     if (excerpt.length < 20 && desc.length > 20) excerpt = desc;
 
     // Trim to ~160 chars for a half-story preview
@@ -654,7 +649,7 @@
     return { title, desc: excerpt, keywords };
   }
 
-  // ── Fetch all existing volumes ──
+  // ── Fetch all existing volumes (skips missing ones) ──
   async function fetchAllVolumes() {
     const found = [];
     const MAX_CHECK = 500;
@@ -715,7 +710,7 @@
     }
   }
 
-  // ── Load Latest Volumes (rectangular cards with half-story) ──
+  // ── Load Latest Volumes (cards with half-story previews) ──
   async function loadLatestVolumes() {
     const gridEl = document.getElementById('latestVolumesGrid');
     const statusEl = document.getElementById('latestVolumesStatus');
@@ -730,7 +725,7 @@
     statusEl.remove();
     gridEl.innerHTML = '';
 
-    // Show newest first, limit to 12 for a clean grid
+    // Show newest first, limit to 12
     const latest = found.slice(-12).reverse();
 
     latest.forEach(({ n, html }) => {
@@ -817,7 +812,7 @@
     noteEl.textContent = `${found.length} trend${found.length === 1 ? '' : 's'} published. New trends drop weekly.`;
   }
 
-  // ── Run ──
+  // ── Run everything ──
   loadArchive();
   loadLatestVolumes();
   loadTrends();
